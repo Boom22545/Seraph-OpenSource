@@ -1,0 +1,19 @@
+[
+  {
+    "modid": "${modid}",
+    "name": "${name}",
+    "description": "${description}",
+    "version": "${version}",
+    "mcversion": "${mcversion}",
+    "url": "${url}",
+    "updateUrl": "${updateUrl}",
+    "authorList": [
+      "Amalasuintha",
+      "gucci_gang"
+    ],
+    "credits": "Lead Developer: Amalasuintha, Developer and Lead Designer: gucci_gang, Alpha Testers: IlyMyKing, Beta Testers: Khual, _ORANGED_",
+    "logoFile": "",
+    "screenshots": [ ],
+    "dependencies": [ ]
+  }
+]
