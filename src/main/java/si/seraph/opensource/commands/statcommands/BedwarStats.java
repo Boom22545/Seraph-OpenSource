@@ -2,11 +2,10 @@ package si.seraph.opensource.commands.statcommands;
 
 import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommandSender;
-import si.seraph.opensource.seraphapi.games.bedwars.Bedwars;
+import si.seraph.opensource.seraphapi.apiwrappers.hypixel.games.bedwars.Bedwars;
 import si.seraph.opensource.seraphapi.methodbases.SeraphCommandBase;
 import si.seraph.opensource.seraphapi.utils.Handler;
 import si.seraph.opensource.seraphapi.utils.chat.ChatColour;
-import si.seraph.opensource.seraphapi.utils.chat.ChatUtils;
 
 public class BedwarStats extends SeraphCommandBase {
 
@@ -26,10 +25,10 @@ public class BedwarStats extends SeraphCommandBase {
         if (args.length == 1) {
             Handler.asExecutor(()-> {
                 Bedwars bw = new Bedwars(args[0]);
-                ChatUtils.sendMessage(bw.getFormattedStats());
+                sendMessageWithBorder(bw.getFormattedStats());
             });
         } else {
-            ChatUtils.sendMessage(ChatColour.RED + "Command Usage: /bws <player>");
+            sendMessage(ChatColour.RED + "Command Usage: /bws <player>");
         }
     }
 

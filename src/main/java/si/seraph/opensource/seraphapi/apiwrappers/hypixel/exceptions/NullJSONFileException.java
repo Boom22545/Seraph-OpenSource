@@ -1,4 +1,4 @@
-package si.seraph.opensource.seraphapi.exceptions;
+package si.seraph.opensource.seraphapi.apiwrappers.hypixel.exceptions;
 
 public class NullJSONFileException extends Exception {
 

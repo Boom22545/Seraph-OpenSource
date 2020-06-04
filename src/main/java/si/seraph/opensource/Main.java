@@ -1,5 +1,7 @@
 package si.seraph.opensource;
 
+import si.seraph.opensource.commands.configcommands.SetAPI;
+import si.seraph.opensource.commands.statcommands.BedwarStats;
 import si.seraph.opensource.seraphapi.config.ModConfig;
 import net.minecraft.command.ICommand;
 import net.minecraftforge.client.ClientCommandHandler;
@@ -22,6 +24,7 @@ public class Main {
 
     @Mod.EventHandler
     public void init(FMLInitializationEvent event) {
+        registerCommands(new SetAPI(), new BedwarStats());
         registerListeners(new APIListener(), new StatsOnJoin());
     }
 

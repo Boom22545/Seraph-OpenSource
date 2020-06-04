@@ -1,6 +1,6 @@
-package si.seraph.opensource.seraphapi.games.bedwars;
+package si.seraph.opensource.seraphapi.apiwrappers.hypixel.games.bedwars;
 
-import si.seraph.opensource.seraphapi.games.HypixelGameBase;
+import si.seraph.opensource.seraphapi.apiwrappers.hypixel.games.HypixelGameBase;
 import si.seraph.opensource.seraphapi.utils.chat.ChatColour;
 
 public abstract class BedwarsUtils extends HypixelGameBase {
@@ -135,35 +135,35 @@ public abstract class BedwarsUtils extends HypixelGameBase {
     // Star Integer Seperation
     public static String starSeperation(int star) {
         char[] chars = String.valueOf(star).toCharArray();
-        return ChatColour.RED + "" + chars[0] + ChatColour.GOLD + "" + chars[1] + ChatColour.YELLOW + "" + chars[2] + ChatColour.GREEN + "" + chars[3];
+        return ChatColour.GOLD + "" + chars[0] + ChatColour.YELLOW + "" + chars[1] + ChatColour.GREEN + "" + chars[2] + ChatColour.AQUA + "" + chars[3] + ChatColour.LIGHT_PURPLE;
     }
 
     // Star Colors
     public String starColor(int star) {
         String string = "";
         if (star < 100) {
-            string = ChatColour.GREY + String.valueOf(star);
+            string = ChatColour.GREY + "[" + String.valueOf(star) + "\u272B" + "]";
         } else if (star < 200) {
-            string = ChatColour.WHITE + String.valueOf(star);
+            string = ChatColour.WHITE + "[" + String.valueOf(star) + "\u272B" + "]";
         } else if (star < 300) {
-            string = ChatColour.GOLD + String.valueOf(star);
+            string = ChatColour.GOLD + "[" + String.valueOf(star) + "\u272B" + "]";
         } else if (star < 400) {
-            string = ChatColour.AQUA + String.valueOf(star);
+            string = ChatColour.AQUA + "[" + String.valueOf(star) + "\u272B" + "]";
         } else if (star < 500) {
-            string = ChatColour.DARK_GREEN + String.valueOf(star);
+            string = ChatColour.DARK_GREEN + "[" + String.valueOf(star) + "\u272B" + "]";
         } else if (star < 600) {
-            string = ChatColour.DARK_AQUA + String.valueOf(star);
+            string = ChatColour.DARK_AQUA + "[" + String.valueOf(star) + "\u272B" + "]";
         } else if (star < 700) {
-            string = ChatColour.DARK_RED + String.valueOf(star);
+            string = ChatColour.DARK_RED + "[" + String.valueOf(star) + "\u272B" + "]";
         } else if (star < 800) {
-            string = ChatColour.LIGHT_PURPLE + String.valueOf(star);
+            string = ChatColour.LIGHT_PURPLE + "[" + String.valueOf(star) + "\u272B" + "]";
         } else if (star < 900) {
-            string = ChatColour.BLUE + String.valueOf(star);
+            string = ChatColour.BLUE + "[" + String.valueOf(star) + "\u272B" + "]";
         } else if (star < 1000) {
-            string = ChatColour.DARK_PURPLE + String.valueOf(star);
+            string = ChatColour.DARK_PURPLE + "[" + String.valueOf(star) + "\u272B" + "]";
         } else {
-            string = starSeperation(star) + ChatColour.AQUA;
+            string = ChatColour.RED + "[" + starSeperation(star) + ChatColour.LIGHT_PURPLE + "\u272B" + ChatColour.DARK_PURPLE + "]";
         }
-        return string + "\u272B" + ChatColour.WHITE;
+        return string + ChatColour.WHITE;
     }
 }

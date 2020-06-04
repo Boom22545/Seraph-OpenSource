@@ -1,4 +1,4 @@
-package si.seraph.opensource.seraphapi;
+package si.seraph.opensource.seraphapi.apiwrappers.hypixel;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -9,10 +9,7 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
-import si.seraph.opensource.seraphapi.exceptions.ApiReturnedUnSuccessfulException;
-import si.seraph.opensource.seraphapi.exceptions.InvalidKeyException;
-import si.seraph.opensource.seraphapi.exceptions.NullJSONFileException;
-import si.seraph.opensource.seraphapi.exceptions.TooManyHypixelRequestsException;
+import si.seraph.opensource.seraphapi.apiwrappers.hypixel.exceptions.*;
 import si.seraph.opensource.seraphapi.config.ModConfig;
 import si.seraph.opensource.seraphapi.utils.References;
 
@@ -25,9 +22,7 @@ import java.text.MessageFormat;
 public class HypixelAPI {
     private final String key = ModConfig.getInstance().getApiKey();
 
-    public static HypixelAPI getInstance() { return new HypixelAPI(); }
-
-    public JsonObject getApi(String name) throws TooManyHypixelRequestsException, InvalidKeyException, ApiReturnedUnSuccessfulException, NullJSONFileException {
+    public JsonObject getApi(String name) throws TooManyHypixelRequestsException, InvalidKeyException, ApiReturnedUnSuccessfulException, NullJSONFileException, PlayerReturnedNullException {
         JsonObject obj = new JsonObject();
         if (key == null) {
             throw new InvalidKeyException();
@@ -48,60 +43,11 @@ public class HypixelAPI {
                         throw new InvalidKeyException();
                     }
                     throw new NullJSONFileException();
+                } else if (obj.get("player").toString().contains("null")) {
+                    throw new PlayerReturnedNullException();
                 } else if (obj.get("success").getAsString().equals("false")) {
                     throw new ApiReturnedUnSuccessfulException();
                 }
-            } catch (IOException e) {
-                System.out.println("getApi");
-                e.printStackTrace();
-            }
-            return obj;
-        }
-    }
-
-    public JsonObject getApi(EntityPlayer player) throws TooManyHypixelRequestsException, InvalidKeyException, ApiReturnedUnSuccessfulException, NullJSONFileException {
-        JsonObject obj = new JsonObject();
-        if (key == null) {
-            throw new InvalidKeyException();
-        } else {
-            try (CloseableHttpClient client = HttpClients.createDefault()) {
-                HttpGet request = new HttpGet(MessageFormat.format("https://api.hypixel.net/player?key={0}&uuid={1}", key, player.getUniqueID().toString().replace("-", "")));
-                obj = new JsonParser().parse(new InputStreamReader(client.execute(request).getEntity().getContent(), StandardCharsets.UTF_8)).getAsJsonObject();
-                System.out.println(request.toString().replace(key, "APIKEY") + " Player: " + player.getName());
-                if (obj.get("player") == null) {
-                    if (obj.get("cause").getAsString().equals("Invalid API key!")) {
-                        throw new InvalidKeyException();
-                    }
-                    throw new NullJSONFileException();
-                } else if (obj.get("success").getAsString().equals("false")) {
-                    throw new ApiReturnedUnSuccessfulException();
-                }
-            } catch (IOException e) {
-                System.out.println("getApi");
-                e.printStackTrace();
-            }
-            return obj;
-        }
-    }
-
-    public JsonObject getApi(HypixelAPITypes types, String name) throws TooManyHypixelRequestsException, InvalidKeyException, ApiReturnedUnSuccessfulException, NullJSONFileException {
-        JsonObject obj = new JsonObject();
-        if (key == null) {
-            throw new InvalidKeyException();
-        } else {
-            String uuid;
-            if (name.length() < 32) {
-                uuid = getUUID(name).replace("-", "");
-            } else if (References.UUID.matcher(name).matches() || References.UUID_NO_DASHES.matcher(name).matches()) {
-                uuid = (name).replace("-", "");
-            } else {
-                uuid = getUUID(name).replace("-", "");
-            }
-            try (CloseableHttpClient client = HttpClients.createDefault()) {
-                HttpGet httpGet = new HttpGet(MessageFormat.format("https://api.hypixel.net/{0}?key={1}&uuid={2}", types.toApiRequest(), key, uuid));
-                JsonParser jsonParser = new JsonParser();
-                obj = jsonParser.parse(new InputStreamReader(client.execute(httpGet).getEntity().getContent(), StandardCharsets.UTF_8)).getAsJsonObject();
-                System.out.println(httpGet.toString().replace(key, "APIKEY") + " Player: " + name);
             } catch (IOException e) {
                 System.out.println("getApi");
                 e.printStackTrace();

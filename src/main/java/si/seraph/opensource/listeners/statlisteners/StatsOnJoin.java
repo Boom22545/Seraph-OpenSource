@@ -1,6 +1,6 @@
 package si.seraph.opensource.listeners.statlisteners;
 
-import si.seraph.opensource.seraphapi.games.bedwars.Bedwars;
+import si.seraph.opensource.seraphapi.apiwrappers.hypixel.games.bedwars.Bedwars;
 import si.seraph.opensource.seraphapi.utils.chat.ChatColour;
 import si.seraph.opensource.seraphapi.utils.chat.ChatUtils;
 import si.seraph.opensource.seraphapi.utils.GameChecker;
@@ -9,16 +9,18 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraftforge.client.event.ClientChatReceivedEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import si.seraph.opensource.seraphapi.utils.chat.QueueStatsAdapter;
 
 import java.util.Collection;
 import java.util.Collections;
 import java.util.concurrent.FutureTask;
 import java.util.concurrent.atomic.AtomicInteger;
 
-public class StatsOnJoin {
+public class StatsOnJoin extends QueueStatsAdapter {
 
     GameChecker gameChecker = new GameChecker();
     private boolean isOnePlayer;
+    private boolean isActive = false;
 
     @SuppressWarnings("rawtypes")
     @SubscribeEvent
@@ -28,44 +30,10 @@ public class StatsOnJoin {
             String umsg = event.message.getUnformattedText();
             String[] joinArgs = msg.split(" ");
             String player = joinArgs[0];
+            String lPlayer = Minecraft.getMinecraft().thePlayer.getName();
             if (msg.contains("§r§e has joined (")) {
-                String lPlayer = Minecraft.getMinecraft().thePlayer.getName();
                 if (umsg.contains(lPlayer)) {
-                    Handler.asExecutor(()-> {
-                        try {
-                            Thread.sleep(120);
-                        } catch (InterruptedException ignored) {
-                        }
-                        final Collection<EntityPlayer> playerList = Collections.unmodifiableList(Minecraft.getMinecraft().theWorld.playerEntities);
-                        if (playerList.size() < 2) {
-                            isOnePlayer = true;
-                        } else {
-                            isOnePlayer = false;
-                        }
-                        FutureTask<StringBuilder> futureStringBuilder = new FutureTask<>(isOnePlayer ? ()-> {
-                            StringBuilder builder = new StringBuilder();
-                            builder.append(new Bedwars(lPlayer).getFormattedJoinStats(player));
-                            return builder;
-                        } : ()-> {
-                            StringBuilder builder = new StringBuilder();
-                            FutureTask[] futureTasks = new FutureTask[playerList.size()];
-                            AtomicInteger ai = new AtomicInteger();
-                            playerList.parallelStream().forEachOrdered(p -> futureTasks[ai.getAndIncrement()] = new FutureTask<>(()-> new Bedwars(p.getName()).getFormattedQueueStats(p.getName())));
-                            Handler.asExecutor(futureTasks);
-                            int i = 0;
-                            while (i < playerList.size()) {
-                                builder.append(futureTasks[i].get()).append("\n");
-                                i++;
-                            }
-                            return builder;
-                        });
-                        Handler.asExecutor(futureStringBuilder);
-                        try {
-                            ChatUtils.sendMessage(futureStringBuilder.get().toString());
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                    });
+                    isActive = false;
                 }
                 Handler.asExecutor(()-> {
                     String[] args = umsg.split(" ");
@@ -78,6 +46,13 @@ public class StatsOnJoin {
                 Handler.asExecutor(()-> {
                     ChatUtils.sendMessage(ChatColour.RED + "- " + player + ChatColour.RED + " quit");
                 });
+            } else if (msg.contains("§eThe game starts in")) {
+                if (!isActive) {
+                    isActive = true;
+                    run(new Bedwars(), player);
+                }
+            } else if (msg.contains("We don't have enough players! Start cancelled.")) {
+                isActive = false;
             }
         }
     }

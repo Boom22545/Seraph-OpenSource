@@ -1,7 +1,8 @@
-package si.seraph.opensource.seraphapi.games;
+package si.seraph.opensource.seraphapi.apiwrappers.hypixel.games;
 
 import com.google.gson.JsonObject;
-import si.seraph.opensource.seraphapi.HypixelAPI;
+import net.minecraft.entity.player.EntityPlayer;
+import si.seraph.opensource.seraphapi.apiwrappers.hypixel.HypixelAPI;
 import si.seraph.opensource.seraphapi.utils.chat.ChatColour;
 import net.minecraft.client.Minecraft;
 
@@ -14,6 +15,7 @@ public abstract class HypixelGameBase extends HypixelAPI implements IHypixelGame
     private JsonObject wholeObject, playerObject;
     protected String playerName, uniqueIDString;
     protected UUID uniqueID;
+    protected EntityPlayer entityPlayer;
 
     public String getPlayerUUID() {
         return playerUUID;

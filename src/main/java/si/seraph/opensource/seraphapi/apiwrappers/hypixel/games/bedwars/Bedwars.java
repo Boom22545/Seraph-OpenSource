@@ -1,25 +1,22 @@
-package si.seraph.opensource.seraphapi.games.bedwars;
+package si.seraph.opensource.seraphapi.apiwrappers.hypixel.games.bedwars;
 
 import com.google.gson.JsonObject;
-import si.seraph.opensource.seraphapi.exceptions.ApiReturnedUnSuccessfulException;
-import si.seraph.opensource.seraphapi.exceptions.InvalidKeyException;
-import si.seraph.opensource.seraphapi.exceptions.NullJSONFileException;
-import si.seraph.opensource.seraphapi.exceptions.TooManyHypixelRequestsException;
+import si.seraph.opensource.seraphapi.apiwrappers.hypixel.exceptions.*;
 import si.seraph.opensource.seraphapi.utils.chat.ChatColour;
 import si.seraph.opensource.seraphapi.utils.chat.ChatUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.scoreboard.Scoreboard;
-import si.seraph.opensource.seraphapi.games.IHypixelGame;
+import si.seraph.opensource.seraphapi.apiwrappers.hypixel.games.IHypixelGame;
 
 import java.text.MessageFormat;
 
 public final class Bedwars extends BedwarsUtils implements IHypixelGame {
 
-    private boolean isNicked, bedwarsStatsCommand;
+    private boolean isNicked, bedwarsStatsCommand, notReal;
     private JsonObject bedwarJsonObject, achievementJsonObject;
     private Scoreboard scoreboard;
     /* KEEP CHAT COLOUR RESET AFTER! */
-    private String queuePrefix = ChatColour.YELLOW + "*" + ChatColour.RESET, separator = ChatColour.GOLD + "-" + ChatColour.RESET;
+    private String queuePrefix = ChatColour.LIGHT_PURPLE + "*" + ChatColour.RESET, separator = ChatColour.GOLD + "-" + ChatColour.RESET;
     private String joinPrefix = ChatColour.GREEN + "+" + ChatColour.RESET;
 
     public Bedwars(String name) {
@@ -27,8 +24,13 @@ public final class Bedwars extends BedwarsUtils implements IHypixelGame {
         bedwarsStatsCommand = false;
     }
 
+    public Bedwars() {
+        bedwarsStatsCommand = false;
+    }
+
     public void setData(String name) {
         isNicked = false;
+        notReal = false;
         boolean isFunctional = false;
         try {
             setWholeObject(getApi(name));
@@ -38,12 +40,14 @@ public final class Bedwars extends BedwarsUtils implements IHypixelGame {
         } catch (ApiReturnedUnSuccessfulException e) {
             ChatUtils.sendMessage("The api returned not successful, cause: " + e);
         } catch (NullJSONFileException e) {
-            isNicked = true;
+            notReal = true;
         } catch (InvalidKeyException e) {
             ChatUtils.sendMessage("Invalid API Key!");
         } catch (NullPointerException e) {
             System.out.println("setData");
             e.printStackTrace();
+        } catch (PlayerReturnedNullException e) {
+            isNicked = true;
         }
         try {
             if (!isNicked && isFunctional) {
@@ -134,23 +138,39 @@ public final class Bedwars extends BedwarsUtils implements IHypixelGame {
 
     public String getFormattedStats() {
         if (!isNicked) {
-            return MessageFormat.format("{0} {1} {2} {3}, {4}, {5}, {6}", getRankColourWithPrefix(), separator, starColor(getBedwarStars()), wsColor(getWinstreak()), fkdrColorDouble(fkdRatioDouble(this)), wlrColorDouble(wlRatioDouble(this)), bblrColorDouble(bblRatioDouble(this)));
+            if (!notReal) {
+                return MessageFormat.format("{0} {1} - {2}, {3}, {4}, {5}", starColor(getBedwarStars()), getRankColourWithPrefix(), wsColor(getWinstreak()), fkdrColorDouble(fkdRatioDouble(this)), wlrColorDouble(wlRatioDouble(this)), bblrColorDouble(bblRatioDouble(this)));
+            } else {
+                return ChatColour.RED + getPlayerName() + " is not a real player!";
+            }
+        } else {
+            return ChatColour.RED + getPlayerName() + " is nicked!";
         }
-        return ChatColour.RED + " is Nicked!";
     }
 
     public String getFormattedJoinStats(String playerName) {
         if (!isNicked) {
-            return MessageFormat.format("{0} {1} {2} {3}, {4}, {5}, {6}, {7}", joinPrefix, playerName, separator, starColor(getBedwarStars()), wsColor(getWinstreak()), fkdrColorDouble(fkdRatioDouble(this)), wlrColorDouble(wlRatioDouble(this)), bblrColorDouble(bblRatioDouble(this)));
+            if (!notReal) {
+                return MessageFormat.format("{0} {1} {2} {3} {4}, {5}, {6}, {7}", joinPrefix, starColor(getBedwarStars()), playerName, separator, wsColor(getWinstreak()), fkdrColorDouble(fkdRatioDouble(this)), wlrColorDouble(wlRatioDouble(this)), bblrColorDouble(bblRatioDouble(this)));
+            } else {
+                return ChatColour.RED + getPlayerName() + " is not a real player!";
+            }
+        } else {
+            return ChatColour.RED + getPlayerName() + " is nicked!";
         }
-        return ChatColour.RED + " is Nicked!";
     }
 
-    public String getFormattedQueueStats(String playerName) {
+    @Override
+    public String getFormattedQueueStats() {
         if (!isNicked) {
-            return MessageFormat.format("{0} {1} {2} {3}, {4}, {5}, {6}, {7}", queuePrefix, ChatColour.GRAY + playerName, separator, starColor(getBedwarStars()), wsColor(getWinstreak()), fkdrColorDouble(fkdRatioDouble(this)), wlrColorDouble(wlRatioDouble(this)), bblrColorDouble(bblRatioDouble(this)));
+            if (!notReal) {
+                return MessageFormat.format("{0} {1} {2} {3} {4}, {5}, {6}, {7}", queuePrefix, starColor(getBedwarStars()), getRankColour(), separator, wsColor(getWinstreak()), fkdrColorDouble(fkdRatioDouble(this)), wlrColorDouble(wlRatioDouble(this)), bblrColorDouble(bblRatioDouble(this)));
+            } else {
+                return ChatColour.RED + getPlayerName() + " is not a real player!";
+            }
+        } else {
+            return ChatColour.RED + getPlayerName() + " is nicked!";
         }
-        return ChatColour.RED + " is Nicked!";
     }
 
     public String getSidebarName() {

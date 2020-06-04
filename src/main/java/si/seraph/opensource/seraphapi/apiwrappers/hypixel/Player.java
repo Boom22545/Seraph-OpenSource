@@ -1,17 +1,14 @@
-package si.seraph.opensource.seraphapi;
+package si.seraph.opensource.seraphapi.apiwrappers.hypixel;
 
 import com.google.gson.JsonObject;
+import si.seraph.opensource.seraphapi.apiwrappers.hypixel.exceptions.*;
 import si.seraph.opensource.seraphapi.utils.chat.ChatUtils;
-import si.seraph.opensource.seraphapi.exceptions.ApiReturnedUnSuccessfulException;
-import si.seraph.opensource.seraphapi.exceptions.InvalidKeyException;
-import si.seraph.opensource.seraphapi.exceptions.NullJSONFileException;
-import si.seraph.opensource.seraphapi.exceptions.TooManyHypixelRequestsException;
-import si.seraph.opensource.seraphapi.games.HypixelGameBase;
+import si.seraph.opensource.seraphapi.apiwrappers.hypixel.games.HypixelGameBase;
 
 
 public class Player extends HypixelGameBase {
 
-    private boolean isNicked;
+    private boolean isNicked, notReal;
     private JsonObject player, status;
 
     public Player(String name) {
@@ -20,6 +17,7 @@ public class Player extends HypixelGameBase {
 
     public void setData(String name) {
         isNicked = false;
+        notReal = false;
         try {
             setWholeObject(getApi(name));
         } catch (TooManyHypixelRequestsException e) {
@@ -27,12 +25,14 @@ public class Player extends HypixelGameBase {
         } catch (ApiReturnedUnSuccessfulException e) {
             ChatUtils.sendMessage("The api returned not successful, cause: " + e);
         } catch (NullJSONFileException e) {
-            isNicked = true;
+            notReal = true;
         } catch (InvalidKeyException e) {
             ChatUtils.sendMessage("Invalid API Key!");
         } catch (NullPointerException e) {
             System.out.println("setData");
             e.printStackTrace();
+        } catch (PlayerReturnedNullException e) {
+            isNicked = true;
         }
         try {
             if (!isNicked) {
@@ -56,6 +56,11 @@ public class Player extends HypixelGameBase {
 
     @Override
     public String getSidebarName() {
+        return null;
+    }
+
+    @Override
+    public String getFormattedQueueStats() {
         return null;
     }
 
