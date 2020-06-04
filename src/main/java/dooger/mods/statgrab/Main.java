@@ -22,9 +22,6 @@ public class Main {
     @Mod.EventHandler
     public void init(FMLInitializationEvent event) {
         registerListeners(new APIListener(), new StatsOnJoin());
-//        MinecraftForge.EVENT_BUS.register(new Anti4v4());
-//        MinecraftForge.EVENT_BUS.register(new SpamParty());
-//        registerCommands(new SpamPartyCommand());
     }
 
     private void registerCommands(ICommand... command) {
