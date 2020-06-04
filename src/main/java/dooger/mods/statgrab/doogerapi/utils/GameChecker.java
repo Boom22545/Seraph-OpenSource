@@ -5,10 +5,6 @@ import net.minecraft.scoreboard.ScoreObjective;
 
 public class GameChecker {
 
-    public static GameChecker getInstance() {
-        return new GameChecker();
-    }
-
     public String getSidebar() {
         try {
             if (!(Minecraft.getMinecraft().theWorld.getScoreboard().getObjectiveInDisplaySlot(1).getDisplayName() == null)) {
@@ -29,19 +25,4 @@ public class GameChecker {
         }
         return false;
     }
-
-    public boolean isDuels() {
-        if (getSidebar() != null) {
-            return getSidebar().contains("DUELS");
-        }
-        return false;
-    }
-
-    public boolean isSkywars() {
-        if (getSidebar() != null) {
-            return getSidebar().equalsIgnoreCase("SKYWARS");
-        }
-        return false;
-    }
-
 }
