@@ -1,4 +1,4 @@
-package si.seraph.opensource.commands.statcommands;
+package si.seraph.opensource.mods.commands.statcommands;
 
 import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommandSender;

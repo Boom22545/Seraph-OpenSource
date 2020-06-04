@@ -1,4 +1,4 @@
-package si.seraph.opensource.listeners;
+package si.seraph.opensource.mods.listeners;
 
 import si.seraph.opensource.seraphapi.utils.Handler;
 import si.seraph.opensource.seraphapi.utils.chat.ChatColour;
