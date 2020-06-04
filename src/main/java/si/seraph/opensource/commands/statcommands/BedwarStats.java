@@ -1,13 +1,13 @@
 package si.seraph.opensource.commands.statcommands;
 
-import net.minecraft.command.CommandBase;
 import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommandSender;
 import si.seraph.opensource.seraphapi.games.bedwars.Bedwars;
+import si.seraph.opensource.seraphapi.methodbases.SeraphCommandBase;
 import si.seraph.opensource.seraphapi.utils.Handler;
 import si.seraph.opensource.seraphapi.utils.chat.ChatUtils;
 
-public class BedwarStats extends CommandBase {
+public class BedwarStats extends SeraphCommandBase {
 
 
     @Override
@@ -28,8 +28,4 @@ public class BedwarStats extends CommandBase {
         });
     }
 
-    @Override
-    public boolean canCommandSenderUseCommand(ICommandSender sender) {
-        return true;
-    }
 }

@@ -1,12 +1,12 @@
 package si.seraph.opensource.commands.configcommands;
 
-import net.minecraft.command.CommandBase;
 import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommandSender;
 import si.seraph.opensource.seraphapi.config.ModConfig;
+import si.seraph.opensource.seraphapi.methodbases.SeraphCommandBase;
 import si.seraph.opensource.seraphapi.utils.Handler;
 
-public class SetAPI extends CommandBase {
+public class SetAPI extends SeraphCommandBase {
 
     @Override
     public String getCommandName() {
@@ -27,8 +27,4 @@ public class SetAPI extends CommandBase {
         });
     }
 
-    @Override
-    public boolean canCommandSenderUseCommand(ICommandSender sender) {
-        return true;
-    }
 }
