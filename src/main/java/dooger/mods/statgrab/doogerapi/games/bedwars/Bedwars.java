@@ -8,7 +8,6 @@ import dooger.mods.statgrab.doogerapi.exceptions.TooManyHypixelRequestsException
 import dooger.mods.statgrab.doogerapi.utils.ChatColour;
 import dooger.mods.statgrab.doogerapi.utils.ChatUtils;
 import net.minecraft.client.Minecraft;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.scoreboard.Scoreboard;
 import dooger.mods.statgrab.doogerapi.games.IHypixelGame;
 
@@ -65,15 +64,6 @@ public final class Bedwars extends BedwarsUtils implements IHypixelGame {
             }
             e.printStackTrace();
         }
-    }
-
-    @Override
-    public void setData(EntityPlayer player) {
-    }
-
-    @Override
-    public String getPlayerName() {
-        return null;
     }
 
     private JsonObject getObject() {
@@ -281,14 +271,6 @@ public final class Bedwars extends BedwarsUtils implements IHypixelGame {
         return i;
     }
 
-    public String getFormattedStats() {
-        return null;
-    }
-
-    public String getFormattedDecimalStats() {
-        return null;
-    }
-
     public String getFormattedJoinStats() {
         if (!isNicked) {
             BedwarsModes modes = ALL;
@@ -299,16 +281,6 @@ public final class Bedwars extends BedwarsUtils implements IHypixelGame {
 
     public String getSidebarName() {
         return "BED WARS";
-    }
-
-    @Override
-    public boolean isCommand() {
-        return bedwarsStatsCommand;
-    }
-
-    @Override
-    public void setCommand(boolean b) {
-        bedwarsStatsCommand = b;
     }
 
     public void init() {}

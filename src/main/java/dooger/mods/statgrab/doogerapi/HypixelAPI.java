@@ -133,23 +133,6 @@ public class HypixelAPI {
         return uuid;
     }
 
-    public String getName(String uuid) {
-        String url = "https://api.mojang.com/user/profiles/" + uuid.replace("-", "") + "/names";
-        String name = null;
-        try (CloseableHttpClient client = HttpClients.createDefault()) {
-            HttpGet request = new HttpGet(url);
-            HttpResponse response = client.execute(request);
-            InputStream is = response.getEntity().getContent();
-            JSONParser jsonParser = new JSONParser();
-            JSONArray object = (JSONArray) jsonParser.parse(new InputStreamReader(is, StandardCharsets.UTF_8));
-            JSONObject object1 = (JSONObject) object.get(object.size() - 1);
-            name = (String) object1.get("name");
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return name;
-    }
-
     protected JsonObject getBedwarsJSON(JsonObject object) {
         JsonObject result = null;
         try {

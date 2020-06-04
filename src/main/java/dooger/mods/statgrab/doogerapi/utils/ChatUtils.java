@@ -12,15 +12,4 @@ public class ChatUtils {
 
         }
     }
-
-    public static void sendMessage(StringBuilder stringBuilder) {
-        try {
-            ;
-            for (String string : stringBuilder.toString().split("\n", 1)) {
-                Minecraft.getMinecraft().thePlayer.addChatMessage(new ChatComponentText(ChatColour.translateAlternateColourCodes(string)));
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
 }

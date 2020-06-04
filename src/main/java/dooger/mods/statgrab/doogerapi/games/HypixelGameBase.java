@@ -14,7 +14,6 @@ public abstract class HypixelGameBase extends HypixelAPI implements IHypixelGame
     private JsonObject wholeObject, playerObject;
     protected String playerName, uniqueIDString;
     protected UUID uniqueID;
-    protected EntityPlayer entityPlayer;
     protected final int DEFAULT = 0;
 
     public String getPlayerUUID() {
@@ -56,10 +55,6 @@ public abstract class HypixelGameBase extends HypixelAPI implements IHypixelGame
         return d;
     }
 
-    protected JsonObject getPlayerObject() {
-        return playerObject.getAsJsonObject();
-    }
-
     protected void setPlayerObject(JsonObject playerObject) {
         this.playerObject = playerObject.getAsJsonObject();
     }
@@ -68,14 +63,6 @@ public abstract class HypixelGameBase extends HypixelAPI implements IHypixelGame
         this.playerName = getWholeObject().get("player").getAsJsonObject().get("displayname").getAsString();
         this.uniqueIDString = getWholeObject().get("player").getAsJsonObject().get("uuid").getAsString().replace("-", "");
         this.uniqueID= java.util.UUID.fromString(String.format("%s-%s-%s-%s-%s", uniqueIDString.substring(0,8), uniqueIDString.substring(8,13), uniqueIDString.substring(13,18), uniqueIDString.substring(18,23),uniqueIDString.substring(23,uniqueIDString.length()-1)));
-    }
-
-    public EntityPlayer getEntityPlayer() {
-        return entityPlayer;
-    }
-
-    public void setEntityPlayer(EntityPlayer entityPlayer) {
-        this.entityPlayer = entityPlayer;
     }
 
     public String formatTime(int seconds) {

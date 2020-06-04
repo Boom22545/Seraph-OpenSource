@@ -12,7 +12,7 @@ import dooger.mods.statgrab.doogerapi.games.HypixelGameBase;
 
 public class Player extends HypixelGameBase {
 
-    private boolean isNicked, isCommand;
+    private boolean isNicked;
     private JsonObject player, status;
 
     public Player(String name) {
@@ -23,11 +23,6 @@ public class Player extends HypixelGameBase {
         isNicked = false;
         try {
             setWholeObject(getApi(name));
-            try {
-                setStatus(getApi(HypixelAPITypes.SESSION, name));
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
         } catch (TooManyHypixelRequestsException e) {
             ChatUtils.sendMessage("Too Many Requests!");
         } catch (ApiReturnedUnSuccessfulException e) {
@@ -55,37 +50,6 @@ public class Player extends HypixelGameBase {
         }
     }
 
-    @Override
-    public void setData(EntityPlayer player) {
-        isNicked = false;
-        try {
-            setWholeObject(getApi(player));
-        } catch (TooManyHypixelRequestsException e) {
-            ChatUtils.sendMessage("Too Many Requests!");
-        } catch (ApiReturnedUnSuccessfulException e) {
-            ChatUtils.sendMessage("The api returned not successful, cause: " + e);
-        } catch (NullJSONFileException e) {
-            isNicked = true;
-        } catch (InvalidKeyException e) {
-            ChatUtils.sendMessage("Invalid API Key!");
-        } catch (NullPointerException e) {
-            System.out.println("setData");
-            e.printStackTrace();
-        }
-        try {
-            if (!isNicked) {
-                this.player = getWholeObject().get("player").getAsJsonObject();
-                setPlayerData();
-            } else {
-                this.playerName = player.getName();
-            }
-        } catch (NullPointerException e) {
-            if (!isNicked) {
-                System.out.println("Error getting player's normal data");
-                e.printStackTrace();
-            }
-        }
-    }
 
     private JsonObject getObject() {
         return player;
@@ -97,34 +61,7 @@ public class Player extends HypixelGameBase {
     }
 
     @Override
-    public boolean isCommand() {
-        return isCommand;
-    }
-
-    @Override
-    public void setCommand(boolean b) {
-        isCommand = b;
-    }
-
-    @Override
     public void init() {
-
-    }
-
-    public String getFormattedStats() {
-        return null;
-    }
-
-    public String getFormattedDecimalStats() {
-        return null;
-    }
-
-    public JsonObject getStatus() {
-        return status;
-    }
-
-    public void setStatus(JsonObject status) {
-        this.status = status;
     }
 
 }

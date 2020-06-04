@@ -1,7 +1,7 @@
 package dooger.mods.statgrab.doogerapi;
 
 public enum HypixelAPITypes {
-    PLAYER("player"), GUILD("guild"), FRIENDS("friends"), KEY("key"), SESSION("status"), SKYBLOCK("skyblock");
+    PLAYER("player");
 
     final String string;
 

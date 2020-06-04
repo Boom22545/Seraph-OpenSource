@@ -47,13 +47,6 @@ public enum ChatColour {
         this.toString = new String(new char[]{COLOUR_CHAR, code});
     }
 
-    public static String stripColour(final String input) {
-        if (input == null) {
-            return null;
-        }
-        return STRIP_COLOUR_PATTERN.matcher(input).replaceAll("");
-    }
-
     public static String translateAlternateColourCodes(String textToTranslate) {
         char[] b = textToTranslate.toCharArray();
         for (int i = 0; i < b.length - 1; i++) {
@@ -65,20 +58,10 @@ public enum ChatColour {
         return new String(b);
     }
 
-    public char getChar() {
-        return this.code;
-    }
 
     @Override
     public String toString() {
         return this.toString;
     }
 
-    public boolean isFormat() {
-        return this.isFormat;
-    }
-
-    public boolean isColour() {
-        return !this.isFormat && this != RESET;
-    }
 }
