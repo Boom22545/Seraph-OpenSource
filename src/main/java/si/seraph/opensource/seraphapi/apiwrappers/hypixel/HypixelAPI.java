@@ -43,7 +43,7 @@ public class HypixelAPI {
                         throw new InvalidKeyException();
                     }
                     throw new NullJSONFileException();
-                } else if (obj.get("player").toString().contains("null")) {
+                } else if (obj.get("player").toString().equalsIgnoreCase("null")) {
                     throw new PlayerReturnedNullException();
                 } else if (obj.get("success").getAsString().equals("false")) {
                     throw new ApiReturnedUnSuccessfulException();
