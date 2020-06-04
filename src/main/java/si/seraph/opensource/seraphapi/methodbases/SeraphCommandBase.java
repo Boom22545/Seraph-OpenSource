@@ -1,29 +1,22 @@
 package si.seraph.opensource.seraphapi.methodbases;
 
+import net.minecraft.client.resources.I18n;
 import net.minecraft.command.CommandBase;
-import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommandSender;
 
-public class SeraphCommandBase extends CommandBase {
+public abstract class SeraphCommandBase extends CommandBase {
 
-    @Override
-    public String getCommandName() {
-        return null;
-    }
+	@Override
+	public boolean canCommandSenderUseCommand(ICommandSender sender) {
+		return true;
+	}
 
-    @Override
-    public String getCommandUsage(ICommandSender sender) {
-        return null;
-    }
+	protected String getFormattedString(String i18n) {
+		return I18n.format("si.seraph.commands." + getCommandName() + "." + i18n);
+	}
 
-    @Override
-    public void processCommand(ICommandSender sender, String[] args) throws CommandException {
-
-    }
-
-    @Override
-    public boolean canCommandSenderUseCommand(ICommandSender sender) {
-        return true;
-    }
+	protected String getFormattedString(String i18n, Object args) {
+		return I18n.format("si.seraph.commands." + getCommandName() + "." + i18n, args);
+	}
 
 }
