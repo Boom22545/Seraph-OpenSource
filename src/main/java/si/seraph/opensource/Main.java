@@ -13,7 +13,7 @@ import si.seraph.opensource.listeners.StatsOnJoin;
 
 import java.util.Arrays;
 
-@Mod(modid = "statsonjoin", name = "Stats On Join", clientSideOnly = true)
+@Mod(modid = "seraphopensource", name = "Seraph OpenSource", clientSideOnly = true)
 public class Main {
 
     @Mod.EventHandler
