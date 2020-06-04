@@ -1,5 +1,3 @@
-Shows players bedwars stats when they join the queue                            
-Add me on discord if you have questions! Max#9877                        
-To edit stat colors, go to BedwarsUtils.java!                                
-To edit join / leave messages, go to Bedwars.java!                                
+A stats mod aiming to support all of Hypixel, Currently being rewritten from the Developers of Seraph mod. This will be a new Opensource version allowing everyone to contribute.   
+
 Credits: Dooger, Kay
