@@ -1,4 +1,4 @@
-package si.seraph.opensource.seraphapi.utils;
+package si.seraph.opensource.seraphapi.utils.chat;
 
 import java.util.regex.Pattern;
 

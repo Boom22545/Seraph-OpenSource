@@ -13,7 +13,7 @@ import si.seraph.opensource.seraphapi.exceptions.ApiReturnedUnSuccessfulExceptio
 import si.seraph.opensource.seraphapi.exceptions.InvalidKeyException;
 import si.seraph.opensource.seraphapi.exceptions.NullJSONFileException;
 import si.seraph.opensource.seraphapi.exceptions.TooManyHypixelRequestsException;
-import si.seraph.opensource.seraphapi.utils.ModConfig;
+import si.seraph.opensource.seraphapi.config.ModConfig;
 import si.seraph.opensource.seraphapi.utils.References;
 
 import java.io.IOException;

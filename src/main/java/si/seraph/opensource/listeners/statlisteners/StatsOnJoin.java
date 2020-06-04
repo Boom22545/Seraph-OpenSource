@@ -1,8 +1,8 @@
-package si.seraph.opensource.listeners;
+package si.seraph.opensource.listeners.statlisteners;
 
 import si.seraph.opensource.seraphapi.games.bedwars.Bedwars;
-import si.seraph.opensource.seraphapi.utils.ChatColour;
-import si.seraph.opensource.seraphapi.utils.ChatUtils;
+import si.seraph.opensource.seraphapi.utils.chat.ChatColour;
+import si.seraph.opensource.seraphapi.utils.chat.ChatUtils;
 import si.seraph.opensource.seraphapi.utils.GameChecker;
 import si.seraph.opensource.seraphapi.utils.Handler;
 import net.minecraft.client.Minecraft;
@@ -37,7 +37,6 @@ public class StatsOnJoin {
                         } catch (InterruptedException ignored) {
                         }
                         final Collection<EntityPlayer> playerList = Collections.unmodifiableList(Minecraft.getMinecraft().theWorld.playerEntities);
-                        String lPlayersStats = new Bedwars(lPlayer).getFormattedQueueStats(lPlayer);
                         if (playerList.size() < 2) {
                             isOnePlayer = true;
                         } else {

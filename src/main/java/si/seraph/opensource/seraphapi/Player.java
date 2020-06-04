@@ -1,7 +1,7 @@
 package si.seraph.opensource.seraphapi;
 
 import com.google.gson.JsonObject;
-import si.seraph.opensource.seraphapi.utils.ChatUtils;
+import si.seraph.opensource.seraphapi.utils.chat.ChatUtils;
 import si.seraph.opensource.seraphapi.exceptions.ApiReturnedUnSuccessfulException;
 import si.seraph.opensource.seraphapi.exceptions.InvalidKeyException;
 import si.seraph.opensource.seraphapi.exceptions.NullJSONFileException;

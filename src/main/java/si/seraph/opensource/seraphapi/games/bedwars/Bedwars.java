@@ -5,8 +5,8 @@ import si.seraph.opensource.seraphapi.exceptions.ApiReturnedUnSuccessfulExceptio
 import si.seraph.opensource.seraphapi.exceptions.InvalidKeyException;
 import si.seraph.opensource.seraphapi.exceptions.NullJSONFileException;
 import si.seraph.opensource.seraphapi.exceptions.TooManyHypixelRequestsException;
-import si.seraph.opensource.seraphapi.utils.ChatColour;
-import si.seraph.opensource.seraphapi.utils.ChatUtils;
+import si.seraph.opensource.seraphapi.utils.chat.ChatColour;
+import si.seraph.opensource.seraphapi.utils.chat.ChatUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.scoreboard.Scoreboard;
 import si.seraph.opensource.seraphapi.games.IHypixelGame;
@@ -130,6 +130,13 @@ public final class Bedwars extends BedwarsUtils implements IHypixelGame {
         } catch (Exception ex) {
             return 0;
         }
+    }
+
+    public String getFormattedStats() {
+        if (!isNicked) {
+            return MessageFormat.format("{0} {1} {2} {3}, {4}, {5}, {6}", getRankColourWithPrefix(), separator, starColor(getBedwarStars()), wsColor(getWinstreak()), fkdrColorDouble(fkdRatioDouble(this)), wlrColorDouble(wlRatioDouble(this)), bblrColorDouble(bblRatioDouble(this)));
+        }
+        return ChatColour.RED + " is Nicked!";
     }
 
     public String getFormattedJoinStats(String playerName) {

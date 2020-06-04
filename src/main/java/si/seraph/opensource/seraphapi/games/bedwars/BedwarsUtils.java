@@ -1,7 +1,7 @@
 package si.seraph.opensource.seraphapi.games.bedwars;
 
 import si.seraph.opensource.seraphapi.games.HypixelGameBase;
-import si.seraph.opensource.seraphapi.utils.ChatColour;
+import si.seraph.opensource.seraphapi.utils.chat.ChatColour;
 
 public abstract class BedwarsUtils extends HypixelGameBase {
 

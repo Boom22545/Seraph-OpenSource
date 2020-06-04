@@ -1,7 +1,9 @@
-package si.seraph.opensource.seraphapi.utils;
+package si.seraph.opensource.seraphapi.config;
 
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
+import si.seraph.opensource.seraphapi.utils.chat.ChatUtils;
+import si.seraph.opensource.seraphapi.utils.Handler;
 
 import java.io.File;
 import java.io.FileReader;
@@ -10,8 +12,8 @@ import java.io.Writer;
 import java.nio.file.Paths;
 import java.util.HashMap;
 
-import static si.seraph.opensource.seraphapi.utils.ModConfigNames.APIKEY;
-import static si.seraph.opensource.seraphapi.utils.ModConfigNames.VERSION;
+import static si.seraph.opensource.seraphapi.config.ModConfigNames.APIKEY;
+import static si.seraph.opensource.seraphapi.config.ModConfigNames.VERSION;
 
 public class ModConfig {
 

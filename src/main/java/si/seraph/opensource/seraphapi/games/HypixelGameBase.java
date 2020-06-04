@@ -2,7 +2,7 @@ package si.seraph.opensource.seraphapi.games;
 
 import com.google.gson.JsonObject;
 import si.seraph.opensource.seraphapi.HypixelAPI;
-import si.seraph.opensource.seraphapi.utils.ChatColour;
+import si.seraph.opensource.seraphapi.utils.chat.ChatColour;
 import net.minecraft.client.Minecraft;
 
 import java.text.DecimalFormat;
@@ -38,6 +38,57 @@ public abstract class HypixelGameBase extends HypixelAPI implements IHypixelGame
     public void setWholeObject(JsonObject wholeObject) {
         this.wholeObject = wholeObject.getAsJsonObject();
         setPlayerObject(wholeObject.get("player").getAsJsonObject());
+    }
+
+    public String getRankColourWithPrefix() {
+        String s = "", staff, rank = "", rankColour, mvpPlusPlus;
+        JsonObject player = getWholeObject().get("player").getAsJsonObject();
+        try {
+            staff = player.get("rank").getAsString();
+        } catch (NullPointerException ignored) {
+            staff = "NOT STAFF";
+        }
+        try {
+            mvpPlusPlus = player.get("monthlyPackageRank").getAsString();
+        } catch (Exception e) {
+            mvpPlusPlus = "NEVER BROUGHT";
+        }
+        try {
+            rank = player.get("newPackageRank").getAsString();
+        } catch (NullPointerException e) {
+            s = ChatColour.GREY + "";
+        }
+        try {
+            rankColour = player.get("rankPlusColor").getAsString();
+        } catch (Exception e) {
+            rankColour = "RED";
+        }
+        if (mvpPlusPlus.equalsIgnoreCase("SUPERSTAR")) {
+            s = ChatColour.GOLD + "[MVP" + ChatColour.valueOf(rankColour) + "++" + ChatColour.GOLD + "] ";
+        } else if (!mvpPlusPlus.equalsIgnoreCase("SUPERSTAR")) {
+            if (rank.equalsIgnoreCase("MVP_PLUS")) {
+                s = ChatColour.AQUA + "[MVP" + ChatColour.valueOf(rankColour) + "+" + ChatColour.AQUA + "] ";
+            } else if (rank.equalsIgnoreCase("MVP")) {
+                s = ChatColour.AQUA + "[MVP] ";
+            } else if (rank.equalsIgnoreCase("VIP_PLUS")) {
+                s = ChatColour.GREEN + "[VIP" + ChatColour.GOLD + "+" + ChatColour.GREEN + "] ";
+            } else if (rank.equalsIgnoreCase("VIP")) {
+                s = ChatColour.GREEN + "[VIP] ";
+            }
+        }
+        try {
+            if (staff.equalsIgnoreCase("HELPER")) {
+                s = ChatColour.BLUE + "[HELPER] ";
+            } else if (staff.equalsIgnoreCase("MODERATOR")) {
+                s = ChatColour.DARK_GREEN + "[MODERATOR] ";
+            } else if (staff.equalsIgnoreCase("ADMIN")) {
+                s = ChatColour.RED + "[ADMIN] ";
+            } else if (staff.equalsIgnoreCase("YOUTUBER")) {
+                s = ChatColour.RED + "[" + ChatColour.WHITE + "YOUTUBE" + ChatColour.RED + "] ";
+            }
+        } catch (Exception ignored) {
+        }
+        return s + getPlayerName() + ChatColour.RESET + "";
     }
 
     public String getRankColour() {
