@@ -1,15 +1,15 @@
-package seraph.mods.opensource.seraphapi.games.bedwars;
+package si.seraph.opensource.seraphapi.games.bedwars;
 
 import com.google.gson.JsonObject;
-import seraph.mods.opensource.seraphapi.exceptions.ApiReturnedUnSuccessfulException;
-import seraph.mods.opensource.seraphapi.exceptions.InvalidKeyException;
-import seraph.mods.opensource.seraphapi.exceptions.NullJSONFileException;
-import seraph.mods.opensource.seraphapi.exceptions.TooManyHypixelRequestsException;
-import seraph.mods.opensource.seraphapi.utils.ChatColour;
-import seraph.mods.opensource.seraphapi.utils.ChatUtils;
+import si.seraph.opensource.seraphapi.exceptions.ApiReturnedUnSuccessfulException;
+import si.seraph.opensource.seraphapi.exceptions.InvalidKeyException;
+import si.seraph.opensource.seraphapi.exceptions.NullJSONFileException;
+import si.seraph.opensource.seraphapi.exceptions.TooManyHypixelRequestsException;
+import si.seraph.opensource.seraphapi.utils.ChatColour;
+import si.seraph.opensource.seraphapi.utils.ChatUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.scoreboard.Scoreboard;
-import seraph.mods.opensource.seraphapi.games.IHypixelGame;
+import si.seraph.opensource.seraphapi.games.IHypixelGame;
 
 import java.text.MessageFormat;
 

@@ -1,4 +1,4 @@
-package seraph.mods.opensource.seraphapi.utils;
+package si.seraph.opensource.seraphapi.utils;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.ChatComponentText;

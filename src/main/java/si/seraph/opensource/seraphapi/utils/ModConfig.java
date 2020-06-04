@@ -1,4 +1,4 @@
-package seraph.mods.opensource.seraphapi.utils;
+package si.seraph.opensource.seraphapi.utils;
 
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -10,8 +10,8 @@ import java.io.Writer;
 import java.nio.file.Paths;
 import java.util.HashMap;
 
-import static seraph.mods.opensource.seraphapi.utils.ModConfigNames.APIKEY;
-import static seraph.mods.opensource.seraphapi.utils.ModConfigNames.VERSION;
+import static si.seraph.opensource.seraphapi.utils.ModConfigNames.APIKEY;
+import static si.seraph.opensource.seraphapi.utils.ModConfigNames.VERSION;
 
 public class ModConfig {
 

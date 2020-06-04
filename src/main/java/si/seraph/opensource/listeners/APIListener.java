@@ -1,8 +1,8 @@
-package seraph.mods.opensource.listeners;
+package si.seraph.opensource.listeners;
 
-import seraph.mods.opensource.seraphapi.utils.ChatColour;
-import seraph.mods.opensource.seraphapi.utils.ChatUtils;
-import seraph.mods.opensource.seraphapi.utils.ModConfig;
+import si.seraph.opensource.seraphapi.utils.ChatColour;
+import si.seraph.opensource.seraphapi.utils.ChatUtils;
+import si.seraph.opensource.seraphapi.utils.ModConfig;
 import net.minecraftforge.client.event.ClientChatReceivedEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 

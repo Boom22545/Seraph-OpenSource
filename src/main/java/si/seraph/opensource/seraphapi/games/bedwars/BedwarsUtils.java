@@ -1,7 +1,7 @@
-package seraph.mods.opensource.seraphapi.games.bedwars;
+package si.seraph.opensource.seraphapi.games.bedwars;
 
-import seraph.mods.opensource.seraphapi.games.HypixelGameBase;
-import seraph.mods.opensource.seraphapi.utils.ChatColour;
+import si.seraph.opensource.seraphapi.games.HypixelGameBase;
+import si.seraph.opensource.seraphapi.utils.ChatColour;
 
 public abstract class BedwarsUtils extends HypixelGameBase {
 

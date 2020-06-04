@@ -1,6 +1,6 @@
-package seraph.mods.opensource;
+package si.seraph.opensource;
 
-import seraph.mods.opensource.seraphapi.utils.ModConfig;
+import si.seraph.opensource.seraphapi.utils.ModConfig;
 import dooger.mods.statgrab.listeners.*;
 import net.minecraft.command.ICommand;
 import net.minecraftforge.client.ClientCommandHandler;
@@ -8,8 +8,8 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
-import seraph.mods.opensource.listeners.APIListener;
-import seraph.mods.opensource.listeners.StatsOnJoin;
+import si.seraph.opensource.listeners.APIListener;
+import si.seraph.opensource.listeners.StatsOnJoin;
 
 import java.util.Arrays;
 

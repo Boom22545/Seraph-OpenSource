@@ -1,8 +1,8 @@
-package seraph.mods.opensource.seraphapi.games;
+package si.seraph.opensource.seraphapi.games;
 
 import com.google.gson.JsonObject;
-import seraph.mods.opensource.seraphapi.HypixelAPI;
-import seraph.mods.opensource.seraphapi.utils.ChatColour;
+import si.seraph.opensource.seraphapi.HypixelAPI;
+import si.seraph.opensource.seraphapi.utils.ChatColour;
 import net.minecraft.client.Minecraft;
 
 import java.text.DecimalFormat;

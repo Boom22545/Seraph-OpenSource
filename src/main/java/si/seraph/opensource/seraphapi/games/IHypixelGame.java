@@ -1,4 +1,4 @@
-package seraph.mods.opensource.seraphapi.games;
+package si.seraph.opensource.seraphapi.games;
 
 public interface IHypixelGame {
 

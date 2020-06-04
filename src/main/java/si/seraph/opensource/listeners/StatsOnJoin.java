@@ -1,10 +1,10 @@
-package seraph.mods.opensource.listeners;
+package si.seraph.opensource.listeners;
 
-import seraph.mods.opensource.seraphapi.games.bedwars.Bedwars;
-import seraph.mods.opensource.seraphapi.utils.ChatColour;
-import seraph.mods.opensource.seraphapi.utils.ChatUtils;
-import seraph.mods.opensource.seraphapi.utils.GameChecker;
-import seraph.mods.opensource.seraphapi.utils.Handler;
+import si.seraph.opensource.seraphapi.games.bedwars.Bedwars;
+import si.seraph.opensource.seraphapi.utils.ChatColour;
+import si.seraph.opensource.seraphapi.utils.ChatUtils;
+import si.seraph.opensource.seraphapi.utils.GameChecker;
+import si.seraph.opensource.seraphapi.utils.Handler;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraftforge.client.event.ClientChatReceivedEvent;

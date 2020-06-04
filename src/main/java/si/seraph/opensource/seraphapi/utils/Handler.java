@@ -1,4 +1,4 @@
-package seraph.mods.opensource.seraphapi.utils;
+package si.seraph.opensource.seraphapi.utils;
 
 import com.google.common.util.concurrent.ThreadFactoryBuilder;
 import com.google.gson.Gson;

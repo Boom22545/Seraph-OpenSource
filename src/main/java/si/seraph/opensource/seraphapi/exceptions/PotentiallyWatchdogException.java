@@ -1,4 +1,4 @@
-package seraph.mods.opensource.seraphapi.exceptions;
+package si.seraph.opensource.seraphapi.exceptions;
 
 public class PotentiallyWatchdogException extends Exception {
 

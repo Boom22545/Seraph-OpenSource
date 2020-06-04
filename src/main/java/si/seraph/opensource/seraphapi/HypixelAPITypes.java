@@ -1,4 +1,4 @@
-package seraph.mods.opensource.seraphapi;
+package si.seraph.opensource.seraphapi;
 
 public enum HypixelAPITypes {
     PLAYER("player");

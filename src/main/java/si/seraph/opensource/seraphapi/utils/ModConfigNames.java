@@ -1,4 +1,4 @@
-package seraph.mods.opensource.seraphapi.utils;
+package si.seraph.opensource.seraphapi.utils;
 
 public enum ModConfigNames {
 

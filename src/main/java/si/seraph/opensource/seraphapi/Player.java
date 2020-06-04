@@ -1,12 +1,12 @@
-package seraph.mods.opensource.seraphapi;
+package si.seraph.opensource.seraphapi;
 
 import com.google.gson.JsonObject;
-import seraph.mods.opensource.seraphapi.utils.ChatUtils;
-import seraph.mods.opensource.seraphapi.exceptions.ApiReturnedUnSuccessfulException;
-import seraph.mods.opensource.seraphapi.exceptions.InvalidKeyException;
-import seraph.mods.opensource.seraphapi.exceptions.NullJSONFileException;
-import seraph.mods.opensource.seraphapi.exceptions.TooManyHypixelRequestsException;
-import seraph.mods.opensource.seraphapi.games.HypixelGameBase;
+import si.seraph.opensource.seraphapi.utils.ChatUtils;
+import si.seraph.opensource.seraphapi.exceptions.ApiReturnedUnSuccessfulException;
+import si.seraph.opensource.seraphapi.exceptions.InvalidKeyException;
+import si.seraph.opensource.seraphapi.exceptions.NullJSONFileException;
+import si.seraph.opensource.seraphapi.exceptions.TooManyHypixelRequestsException;
+import si.seraph.opensource.seraphapi.games.HypixelGameBase;
 
 
 public class Player extends HypixelGameBase {

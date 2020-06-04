@@ -1,4 +1,4 @@
-package seraph.mods.opensource.seraphapi;
+package si.seraph.opensource.seraphapi;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -9,12 +9,12 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
-import seraph.mods.opensource.seraphapi.exceptions.ApiReturnedUnSuccessfulException;
-import seraph.mods.opensource.seraphapi.exceptions.InvalidKeyException;
-import seraph.mods.opensource.seraphapi.exceptions.NullJSONFileException;
-import seraph.mods.opensource.seraphapi.exceptions.TooManyHypixelRequestsException;
-import seraph.mods.opensource.seraphapi.utils.ModConfig;
-import seraph.mods.opensource.seraphapi.utils.References;
+import si.seraph.opensource.seraphapi.exceptions.ApiReturnedUnSuccessfulException;
+import si.seraph.opensource.seraphapi.exceptions.InvalidKeyException;
+import si.seraph.opensource.seraphapi.exceptions.NullJSONFileException;
+import si.seraph.opensource.seraphapi.exceptions.TooManyHypixelRequestsException;
+import si.seraph.opensource.seraphapi.utils.ModConfig;
+import si.seraph.opensource.seraphapi.utils.References;
 
 import java.io.IOException;
 import java.io.InputStream;
