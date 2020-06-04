@@ -2,10 +2,10 @@ package si.seraph.opensource.mods.commands.statcommands;
 
 import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommandSender;
+
 import si.seraph.opensource.seraphapi.apiwrappers.hypixel.games.bedwars.Bedwars;
 import si.seraph.opensource.seraphapi.methodbases.SeraphCommandBase;
 import si.seraph.opensource.seraphapi.utils.Handler;
-import si.seraph.opensource.seraphapi.utils.chat.ChatColour;
 
 public class BedwarStats extends SeraphCommandBase {
 
@@ -17,7 +17,7 @@ public class BedwarStats extends SeraphCommandBase {
 
     @Override
     public String getCommandUsage(ICommandSender sender) {
-        return null;
+        return getFormattedString("usage");
     }
 
     @Override
@@ -28,7 +28,7 @@ public class BedwarStats extends SeraphCommandBase {
                 sendMessageWithBorder(bw.getFormattedStats());
             });
         } else {
-            sendMessage(ChatColour.RED + "Command Usage: /bws <player>");
+            sendMessage(getFormattedString("usage"));
         }
     }
 
