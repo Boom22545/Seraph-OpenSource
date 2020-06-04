@@ -1,4 +1,4 @@
-package si.seraph.opensource;
+package si.seraph.opensource.mods;
 
 import si.seraph.opensource.mods.commands.configcommands.SetAPI;
 import si.seraph.opensource.mods.commands.statcommands.BedwarStats;
