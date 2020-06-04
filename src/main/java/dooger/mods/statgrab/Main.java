@@ -1,0 +1,40 @@
+package dooger.mods.statgrab;
+
+import dooger.mods.statgrab.doogerapi.utils.ModConfig;
+import dooger.mods.statgrab.listeners.*;
+import net.minecraft.command.ICommand;
+import net.minecraftforge.client.ClientCommandHandler;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.common.event.FMLInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+
+import java.util.Arrays;
+
+@Mod(modid = "statsonjoin", name = "Stats On Join", clientSideOnly = true)
+public class Main {
+
+    @Mod.EventHandler
+    public void preInit(FMLPreInitializationEvent event) {
+        ModConfig.getInstance().init();
+    }
+
+    @Mod.EventHandler
+    public void init(FMLInitializationEvent event) {
+        registerListeners(new APIListener(), new StatsOnJoin());
+//        MinecraftForge.EVENT_BUS.register(new Anti4v4());
+//        MinecraftForge.EVENT_BUS.register(new SpamParty());
+//        registerCommands(new SpamPartyCommand());
+    }
+
+    private void registerCommands(ICommand... command) {
+        Arrays.stream(command).parallel().forEachOrdered(ClientCommandHandler.instance::registerCommand);
+    }
+
+    private void registerListeners(Object... objects) {
+        for (Object o : objects) {
+            MinecraftForge.EVENT_BUS.register(o);
+        }
+    }
+
+}
