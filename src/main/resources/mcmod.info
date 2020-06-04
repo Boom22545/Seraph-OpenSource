@@ -8,9 +8,10 @@
     "url": "${url}",
     "updateUrl": "${updateUrl}",
     "authorList": [
-      "dooguh"
+      "dooguh",
+      "Kay"
     ],
-    "credits": "Created by: dooger",
+    "credits": "Created by: dooger and Kay",
     "logoFile": "",
     "screenshots": [ ],
     "dependencies": [ ]
