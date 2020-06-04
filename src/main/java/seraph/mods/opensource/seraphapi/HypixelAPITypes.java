@@ -1,4 +1,4 @@
-package dooger.mods.statgrab.doogerapi;
+package seraph.mods.opensource.seraphapi;
 
 public enum HypixelAPITypes {
     PLAYER("player");

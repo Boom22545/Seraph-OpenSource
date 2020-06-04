@@ -1,6 +1,4 @@
-package dooger.mods.statgrab.doogerapi.games;
-
-import net.minecraft.entity.player.EntityPlayer;
+package seraph.mods.opensource.seraphapi.games;
 
 public interface IHypixelGame {
 

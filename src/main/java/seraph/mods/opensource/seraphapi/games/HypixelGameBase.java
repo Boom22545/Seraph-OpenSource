@@ -1,9 +1,9 @@
-package dooger.mods.statgrab.doogerapi.games;
+package seraph.mods.opensource.seraphapi.games;
 
 import com.google.gson.JsonObject;
-import dooger.mods.statgrab.doogerapi.HypixelAPI;
+import seraph.mods.opensource.seraphapi.HypixelAPI;
+import seraph.mods.opensource.seraphapi.utils.ChatColour;
 import net.minecraft.client.Minecraft;
-import net.minecraft.entity.player.EntityPlayer;
 
 import java.text.DecimalFormat;
 import java.util.UUID;
@@ -14,7 +14,6 @@ public abstract class HypixelGameBase extends HypixelAPI implements IHypixelGame
     private JsonObject wholeObject, playerObject;
     protected String playerName, uniqueIDString;
     protected UUID uniqueID;
-    protected final int DEFAULT = 0;
 
     public String getPlayerUUID() {
         return playerUUID;
@@ -39,6 +38,52 @@ public abstract class HypixelGameBase extends HypixelAPI implements IHypixelGame
     public void setWholeObject(JsonObject wholeObject) {
         this.wholeObject = wholeObject.getAsJsonObject();
         setPlayerObject(wholeObject.get("player").getAsJsonObject());
+    }
+
+    public String getRankColour() {
+        String s = "", staff, rank = "", mvpPlusPlus;
+        JsonObject player = getWholeObject().get("player").getAsJsonObject();
+            try {
+                staff = player.get("rank").getAsString();
+            } catch (NullPointerException ignored) {
+                staff = "NOT STAFF";
+            }
+            try {
+                mvpPlusPlus = player.get("monthlyPackageRank").getAsString();
+            } catch (Exception e) {
+                mvpPlusPlus = "NEVER BROUGHT";
+            }
+            try {
+                rank = player.get("newPackageRank").getAsString();
+            } catch (NullPointerException e) {
+                s = ChatColour.GREY + "";
+            }
+            if (mvpPlusPlus.equalsIgnoreCase("SUPERSTAR")) {
+                s = ChatColour.GOLD + "";
+            } else if (!mvpPlusPlus.equalsIgnoreCase("SUPERSTAR")) {
+                if (rank.equalsIgnoreCase("MVP_PLUS")) {
+                    s = ChatColour.AQUA + "";
+                } else if (rank.equalsIgnoreCase("MVP")) {
+                    s = ChatColour.AQUA + "";
+                } else if (rank.equalsIgnoreCase("VIP_PLUS")) {
+                    s = ChatColour.GREEN + "";
+                } else if (rank.equalsIgnoreCase("VIP")) {
+                    s = ChatColour.GREEN + "";
+                }
+            }
+            try {
+                if (staff.equalsIgnoreCase("HELPER")) {
+                    s = ChatColour.BLUE + "";
+                } else if (staff.equalsIgnoreCase("MODERATOR")) {
+                    s = ChatColour.DARK_GREEN + "";
+                } else if (staff.equalsIgnoreCase("ADMIN")) {
+                    s = ChatColour.RED + "";
+                } else if (staff.equalsIgnoreCase("YOUTUBER")) {
+                    s = ChatColour.RED + "";
+                }
+            } catch (Exception ignored) {
+            }
+        return s + getPlayerName() + ChatColour.RESET + "";
     }
 
     public double formatDouble(int int1, int int2) {

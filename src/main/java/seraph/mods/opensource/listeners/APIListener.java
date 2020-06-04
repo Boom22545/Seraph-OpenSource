@@ -1,8 +1,8 @@
-package dooger.mods.statgrab.listeners;
+package seraph.mods.opensource.listeners;
 
-import dooger.mods.statgrab.doogerapi.utils.ChatColour;
-import dooger.mods.statgrab.doogerapi.utils.ChatUtils;
-import dooger.mods.statgrab.doogerapi.utils.ModConfig;
+import seraph.mods.opensource.seraphapi.utils.ChatColour;
+import seraph.mods.opensource.seraphapi.utils.ChatUtils;
+import seraph.mods.opensource.seraphapi.utils.ModConfig;
 import net.minecraftforge.client.event.ClientChatReceivedEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 

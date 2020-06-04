@@ -1,13 +1,12 @@
-package dooger.mods.statgrab.doogerapi;
+package seraph.mods.opensource.seraphapi;
 
 import com.google.gson.JsonObject;
-import dooger.mods.statgrab.doogerapi.utils.ChatUtils;
-import net.minecraft.entity.player.EntityPlayer;
-import dooger.mods.statgrab.doogerapi.exceptions.ApiReturnedUnSuccessfulException;
-import dooger.mods.statgrab.doogerapi.exceptions.InvalidKeyException;
-import dooger.mods.statgrab.doogerapi.exceptions.NullJSONFileException;
-import dooger.mods.statgrab.doogerapi.exceptions.TooManyHypixelRequestsException;
-import dooger.mods.statgrab.doogerapi.games.HypixelGameBase;
+import seraph.mods.opensource.seraphapi.utils.ChatUtils;
+import seraph.mods.opensource.seraphapi.exceptions.ApiReturnedUnSuccessfulException;
+import seraph.mods.opensource.seraphapi.exceptions.InvalidKeyException;
+import seraph.mods.opensource.seraphapi.exceptions.NullJSONFileException;
+import seraph.mods.opensource.seraphapi.exceptions.TooManyHypixelRequestsException;
+import seraph.mods.opensource.seraphapi.games.HypixelGameBase;
 
 
 public class Player extends HypixelGameBase {

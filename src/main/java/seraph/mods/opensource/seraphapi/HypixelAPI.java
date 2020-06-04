@@ -1,4 +1,4 @@
-package dooger.mods.statgrab.doogerapi;
+package seraph.mods.opensource.seraphapi;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -7,23 +7,20 @@ import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
-import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
-import dooger.mods.statgrab.doogerapi.exceptions.ApiReturnedUnSuccessfulException;
-import dooger.mods.statgrab.doogerapi.exceptions.InvalidKeyException;
-import dooger.mods.statgrab.doogerapi.exceptions.NullJSONFileException;
-import dooger.mods.statgrab.doogerapi.exceptions.TooManyHypixelRequestsException;
-import dooger.mods.statgrab.doogerapi.utils.ModConfig;
+import seraph.mods.opensource.seraphapi.exceptions.ApiReturnedUnSuccessfulException;
+import seraph.mods.opensource.seraphapi.exceptions.InvalidKeyException;
+import seraph.mods.opensource.seraphapi.exceptions.NullJSONFileException;
+import seraph.mods.opensource.seraphapi.exceptions.TooManyHypixelRequestsException;
+import seraph.mods.opensource.seraphapi.utils.ModConfig;
+import seraph.mods.opensource.seraphapi.utils.References;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.text.MessageFormat;
-
-import static dooger.mods.statgrab.doogerapi.utils.References.UUID;
-import static dooger.mods.statgrab.doogerapi.utils.References.UUID_NO_DASHES;
 
 public class HypixelAPI {
     private final String key = ModConfig.getInstance().getApiKey();
@@ -36,7 +33,7 @@ public class HypixelAPI {
             throw new InvalidKeyException();
         } else {
             String requstURL;
-            if (UUID.matcher(name).matches() || UUID_NO_DASHES.matcher(name).matches()) {
+            if (References.UUID.matcher(name).matches() || References.UUID_NO_DASHES.matcher(name).matches()) {
                 requstURL = MessageFormat.format("https://api.hypixel.net/player?key={0}&uuid={1}", key, name.replace("-", ""));
             } else {
                 requstURL = MessageFormat.format("https://api.hypixel.net/player?key={0}&uuid={1}", key, getUUID(name).replace("-", ""));
@@ -95,7 +92,7 @@ public class HypixelAPI {
             String uuid;
             if (name.length() < 32) {
                 uuid = getUUID(name).replace("-", "");
-            } else if (UUID.matcher(name).matches() || UUID_NO_DASHES.matcher(name).matches()) {
+            } else if (References.UUID.matcher(name).matches() || References.UUID_NO_DASHES.matcher(name).matches()) {
                 uuid = (name).replace("-", "");
             } else {
                 uuid = getUUID(name).replace("-", "");
@@ -139,6 +136,16 @@ public class HypixelAPI {
             JsonObject player = object.get("player").getAsJsonObject();
             JsonObject stats = player.get("stats").getAsJsonObject();
             result = stats.get("Bedwars").getAsJsonObject();
+        } catch (NullPointerException ignored) {
+        }
+        return result;
+    }
+
+    protected JsonObject getAchievementJSON(JsonObject object) {
+        JsonObject result = null;
+        try {
+            JsonObject player = object.get("player").getAsJsonObject();
+            result = player.get("achievements").getAsJsonObject();
         } catch (NullPointerException ignored) {
         }
         return result;

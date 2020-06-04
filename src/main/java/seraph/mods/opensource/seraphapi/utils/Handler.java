@@ -1,4 +1,4 @@
-package dooger.mods.statgrab.doogerapi.utils;
+package seraph.mods.opensource.seraphapi.utils;
 
 import com.google.common.util.concurrent.ThreadFactoryBuilder;
 import com.google.gson.Gson;
@@ -22,6 +22,11 @@ public class Handler {
     public static void asExecutor(Runnable runnable) {
         ExecutorService executorService = Executors.newCachedThreadPool(new ThreadFactoryBuilder().setNameFormat("Quick Maths" + "-%d").build());
         executorService.submit(runnable);
+    }
+
+    public static void asExecutor(Runnable... runnables) {
+        ExecutorService executorService = Executors.newFixedThreadPool(NUM_THREADS, new ThreadFactoryBuilder().setNameFormat(References.MODNAME + "-%d").build());
+        Arrays.stream(runnables).forEachOrdered(executorService::submit);
     }
 
     public static Gson getGson() {

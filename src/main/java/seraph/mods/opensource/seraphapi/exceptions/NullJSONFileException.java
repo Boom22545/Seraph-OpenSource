@@ -1,4 +1,4 @@
-package dooger.mods.statgrab.doogerapi.exceptions;
+package seraph.mods.opensource.seraphapi.exceptions;
 
 public class NullJSONFileException extends Exception {
 

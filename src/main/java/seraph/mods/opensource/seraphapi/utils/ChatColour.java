@@ -1,4 +1,4 @@
-package dooger.mods.statgrab.doogerapi.utils;
+package seraph.mods.opensource.seraphapi.utils;
 
 import java.util.regex.Pattern;
 

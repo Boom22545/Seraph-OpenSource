@@ -1,16 +1,16 @@
-package dooger.mods.statgrab.doogerapi.games.bedwars;
+package seraph.mods.opensource.seraphapi.games.bedwars;
 
-import dooger.mods.statgrab.doogerapi.games.HypixelGameBase;
-import dooger.mods.statgrab.doogerapi.utils.ChatColour;
+import seraph.mods.opensource.seraphapi.games.HypixelGameBase;
+import seraph.mods.opensource.seraphapi.utils.ChatColour;
 
 public abstract class BedwarsUtils extends HypixelGameBase {
 
     // WLR Method Double
-    public double wlRatioDouble(Bedwars bw, BedwarsModes modes) {
+    public double wlRatioDouble(Bedwars bw) {
         try {
-            return formatDouble(bw.getWins(modes), bw.getLosses(modes));
+            return formatDouble(bw.getWins(), bw.getLosses());
         } catch (Exception ex) {
-            return formatDouble(bw.getWins(modes), DEFAULT);
+            return 0;
         }
     }
 
@@ -40,11 +40,11 @@ public abstract class BedwarsUtils extends HypixelGameBase {
     }
 
     // BBLR Method Double
-    public double bblRatioDouble(Bedwars bw, BedwarsModes modes) {
+    public double bblRatioDouble(Bedwars bw) {
         try {
-            return formatDouble(bw.getBedsBroken(modes), bw.getBedsLost(modes));
+            return formatDouble(bw.getBedsBroken(), bw.getBedsLost());
         } catch (Exception ex) {
-            return formatDouble(bw.getBedsBroken(modes) ,DEFAULT);
+            return 0;
         }
     }
 
@@ -99,11 +99,11 @@ public abstract class BedwarsUtils extends HypixelGameBase {
     }
 
     // FKDR Method Double
-    public double fkdRatioDouble(Bedwars bw, BedwarsModes modes) {
+    public double fkdRatioDouble(Bedwars bw) {
         try {
-            return formatDouble(bw.getFinalKills(modes), bw.getFinalDeaths(modes));
+            return formatDouble(bw.getFinalKills(), bw.getFinalDeaths());
         } catch (Exception ex) {
-            return formatDouble(bw.getFinalKills(modes),DEFAULT);
+            return 0;
         }
     }
 
