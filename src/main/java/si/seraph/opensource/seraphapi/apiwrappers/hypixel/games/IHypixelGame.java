@@ -6,9 +6,15 @@ public interface IHypixelGame {
 
     void setData(String name);
 
+    void setData(EntityPlayer player);
+
     String getSidebarName();
 
+    String getFormattedStats();
+
     String getFormattedQueueStats();
+
+    String getFormattedJoinStats(String playerName);
 
     void init();
 }

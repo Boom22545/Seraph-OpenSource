@@ -1,33 +1,33 @@
-package si.seraph.opensource.seraphapi.apiwrappers.hypixel.games.bedwars;
+package si.seraph.opensource.seraphapi.apiwrappers.hypixel.games.classic.arenabrawl;
 
 import com.google.gson.JsonObject;
+import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.scoreboard.Scoreboard;
 import si.seraph.opensource.seraphapi.apiwrappers.hypixel.exceptions.*;
-import si.seraph.opensource.seraphapi.apiwrappers.hypixel.games.bedwars.utils.BedwarsUtils;
+import si.seraph.opensource.seraphapi.apiwrappers.hypixel.games.IHypixelGame;
+import si.seraph.opensource.seraphapi.apiwrappers.hypixel.games.classic.arenabrawl.utils.ArenaBrawlUtils;
 import si.seraph.opensource.seraphapi.utils.chat.ChatColour;
 import si.seraph.opensource.seraphapi.utils.chat.ChatUtils;
-import net.minecraft.client.Minecraft;
-import net.minecraft.scoreboard.Scoreboard;
-import si.seraph.opensource.seraphapi.apiwrappers.hypixel.games.IHypixelGame;
 
 import java.text.MessageFormat;
 
-public final class Bedwars extends BedwarsUtils implements IHypixelGame {
+public final class ArenaBrawl extends ArenaBrawlUtils implements IHypixelGame {
 
-    private boolean isNicked, bedwarsStatsCommand, notReal, watchdog;
-    private JsonObject bedwarJsonObject, achievementJsonObject;
+    private boolean isNicked, arenaBrawlStatsCommand, notReal, watchdog;
+    private JsonObject arenaBrawlJsonObject, achievementJsonObject;
     private Scoreboard scoreboard;
     /* KEEP CHAT COLOUR RESET AFTER! */
     private String queuePrefix = ChatColour.LIGHT_PURPLE + "*" + ChatColour.RESET, separator = ChatColour.GOLD + "-" + ChatColour.RESET;
     private String joinPrefix = ChatColour.GREEN + "+" + ChatColour.RESET;
 
-    public Bedwars(String name) {
+    public ArenaBrawl(String name) {
         setData(name);
-        bedwarsStatsCommand = false;
+        arenaBrawlStatsCommand = false;
     }
 
-    public Bedwars() {
-        bedwarsStatsCommand = false;
+    public ArenaBrawl() {
+        arenaBrawlStatsCommand = false;
     }
 
     public void setData(String name) {
@@ -52,8 +52,7 @@ public final class Bedwars extends BedwarsUtils implements IHypixelGame {
         }
         try {
             if (!isNicked && isFunctional && !notReal) {
-                this.bedwarJsonObject = getBedwarsJSON(getWholeObject());
-                this.achievementJsonObject = getAchievementJSON(getWholeObject());
+                this.arenaBrawlJsonObject = getArenaBrawlJSON(getWholeObject());
                 setPlayerData();
                 scoreboard = Minecraft.getMinecraft().theWorld.getScoreboard();
             } else {
@@ -61,7 +60,7 @@ public final class Bedwars extends BedwarsUtils implements IHypixelGame {
             }
         } catch (NullPointerException e) {
             if (!isNicked) {
-                LOGGER.error("Maybe they have never played bedwars before", e);
+                LOGGER.error("Maybe they have never played arena brawl before", e);
             }
             LOGGER.error(e);
         }
@@ -94,104 +93,72 @@ public final class Bedwars extends BedwarsUtils implements IHypixelGame {
         }
         try {
             if (!isNicked && isFunctional && !watchdog && !notReal) {
-                this.bedwarJsonObject = getBedwarsJSON(getWholeObject());
+                this.arenaBrawlJsonObject = getArenaBrawlJSON(getWholeObject());
                 setPlayerData();
                 scoreboard = Minecraft.getMinecraft().theWorld.getScoreboard();
             }
         } catch (NullPointerException e) {
             if (!isNicked) {
-                LOGGER.error("Maybe they have never played bedwars before", e);
+                LOGGER.error("Maybe they have never played arena brawl before", e);
             }
             LOGGER.error(e);
         }
     }
 
     private JsonObject getObject() {
-        return bedwarJsonObject;
+        return arenaBrawlJsonObject;
     }
-    private JsonObject getAchievementObject() { return achievementJsonObject; }
 
-    public int getFinalKills() {
+    public String getOffensive() {
         try {
-            return Integer.parseInt(getObject().get("final_kills_bedwars").toString());
+            return getObject().get("offensive").toString().replace("\"", "");
         } catch (Exception ex) {
-            return 0;
+            return "not_selected";
         }
     }
 
-    public int getFinalDeaths() {
+    public String getUtility() {
         try {
-            return Integer.parseInt(getObject().get("final_deaths_bedwars").toString());
+            return getObject().get("utility").toString().replace("\"", "");
         } catch (Exception ex) {
-            return 0;
+            return "not_selected";
         }
     }
 
-    public int getWinstreak() {
+    public String getSupport() {
         try {
-            return Integer.parseInt(getObject().get("winstreak").toString());
+            return getObject().get("support").toString().replace("\"", "");
         } catch (Exception ex) {
-            return 0;
+            return "not_selected";
         }
     }
 
-    public int getBedwarStars() {
+    public String getUltimate() {
         try {
-            return Integer.parseInt(getAchievementObject().get("bedwars_level").toString());
+            return getObject().get("ultimate").toString().replace("\"", "");
         } catch (Exception ex) {
-            return 0;
+            return "not_selected";
         }
     }
 
-    public int getWins() {
+    public String getRune() {
         try {
-           return Integer.parseInt(getObject().get("wins_bedwars").toString());
+            return getObject().get("active_rune").toString().replace("\"", "");
         } catch (Exception ex) {
-            return 0;
-        }
-    }
-
-    public int getLosses() {
-        try {
-            return Integer.parseInt(getObject().get("losses_bedwars").toString());
-        } catch (Exception ex) {
-            return 0;
-        }
-    }
-
-    public int getBedsLost() {
-        try {
-            return Integer.parseInt(getObject().get("beds_lost_bedwars").toString());
-        } catch (Exception ex) {
-            return 0;
-        }
-    }
-
-    public int getBedsBroken() {
-        try {
-            return Integer.parseInt(getObject().get("beds_broken_bedwars").toString());
-        } catch (Exception ex) {
-            return 0;
-        }
-    }
-
-    public String getFormattedStats() {
-        if (!isNicked) {
-            if (!notReal) {
-                return MessageFormat.format("{0} {1} - {2}, {3}, {4}, {5}", starColor(getBedwarStars()), getRankColourWithPrefix(), wsColor(getWinstreak()), fkdrColorDouble(fkdRatioDouble(this)), wlrColorDouble(wlRatioDouble(this)), bblrColorDouble(bblRatioDouble(this)));
-            } else {
-                return ChatColour.RED + getPlayerName() + " is not a real player!";
-            }
-        } else {
-            return ChatColour.RED + getPlayerName() + " is nicked!";
+            return "not_selected";
         }
     }
 
     @Override
-    public String getFormattedJoinStats(String playerName) {
+    public String getSidebarName() {
+        return null;
+    }
+
+    @Override
+    public String getFormattedStats() {
         if (!isNicked) {
             if (!notReal) {
-                return MessageFormat.format("{0} {1} {2} {3} {4}, {5}, {6}, {7}", joinPrefix, starColor(getBedwarStars()), playerName, separator, wsColor(getWinstreak()), fkdrColorDouble(fkdRatioDouble(this)), wlrColorDouble(wlRatioDouble(this)), bblrColorDouble(bblRatioDouble(this)));
+                return MessageFormat.format("{0} {1} {2}, {3}, {4}, {5}, {6}", getRankColourWithPrefix(), separator, formatRune(getRune()), formatOffensive(getOffensive()), formatUtility(getUtility()), formatSupport(getSupport()), formatUltimate(getUltimate()));
             } else {
                 return ChatColour.RED + getPlayerName() + " is not a real player!";
             }
@@ -204,7 +171,7 @@ public final class Bedwars extends BedwarsUtils implements IHypixelGame {
     public String getFormattedQueueStats() {
         if (!isNicked) {
             if (!notReal) {
-                return MessageFormat.format("{0} {1} {2} {3} {4}, {5}, {6}, {7}", queuePrefix, starColor(getBedwarStars()), getRankColour(), separator, wsColor(getWinstreak()), fkdrColorDouble(fkdRatioDouble(this)), wlrColorDouble(wlRatioDouble(this)), bblrColorDouble(bblRatioDouble(this)));
+                return MessageFormat.format("{0} {1} {2} {3}, {4}, {5}, {6}, {7}", queuePrefix, getRankColour(), separator, formatRune(getRune()), formatOffensive(getOffensive()), formatUtility(getUtility()), formatSupport(getSupport()), formatUltimate(getUltimate()));
             } else {
                 return ChatColour.RED + getPlayerName() + " is not a real player!";
             }
@@ -213,10 +180,21 @@ public final class Bedwars extends BedwarsUtils implements IHypixelGame {
         }
     }
 
-    public String getSidebarName() {
-        return "BED WARS";
+    @Override
+    public String getFormattedJoinStats(String playerName) {
+        if (!isNicked) {
+            if (!notReal) {
+                return MessageFormat.format("{0} {1} {2} {3}, {4}, {5}, {6}, {7}", joinPrefix, playerName, separator, formatRune(getRune()), formatOffensive(getOffensive()), formatUtility(getUtility()), formatSupport(getSupport()), formatUltimate(getUltimate()));
+            } else {
+                return ChatColour.RED + getPlayerName() + " is not a real player!";
+            }
+        } else {
+            return ChatColour.RED + getPlayerName() + " is nicked!";
+        }
     }
 
-    public void init() {}
+    @Override
+    public void init() {
 
+    }
 }

@@ -25,4 +25,11 @@ public class GameChecker {
         }
         return false;
     }
+
+    public boolean isArenaBrawl() {
+        if (getSidebar() != null) {
+            return getSidebar().equalsIgnoreCase("ARENA BRAWL");
+        }
+        return false;
+    }
 }
