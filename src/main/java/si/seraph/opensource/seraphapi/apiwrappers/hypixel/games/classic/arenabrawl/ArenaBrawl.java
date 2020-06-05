@@ -12,7 +12,7 @@ import si.seraph.opensource.seraphapi.utils.chat.ChatUtils;
 
 import java.text.MessageFormat;
 
-public class ArenaBrawl extends ArenaBrawlUtils implements IHypixelGame {
+public final class ArenaBrawl extends ArenaBrawlUtils implements IHypixelGame {
 
     private boolean isNicked, arenaBrawlStatsCommand, notReal, watchdog;
     private JsonObject arenaBrawlJsonObject, achievementJsonObject;
@@ -70,6 +70,7 @@ public class ArenaBrawl extends ArenaBrawlUtils implements IHypixelGame {
         boolean isFunctional = false;
         isNicked = false;
         notReal = false;
+        watchdog = false;
         setEntityPlayer(player);
         setEntityPlayer(player);
         try {
@@ -170,7 +171,7 @@ public class ArenaBrawl extends ArenaBrawlUtils implements IHypixelGame {
     public String getFormattedQueueStats() {
         if (!isNicked) {
             if (!notReal) {
-                return MessageFormat.format("{0} {1} {2} {3}, {4}, {5}, {6}, {7}", joinPrefix, getRankColour(), separator, formatRune(getRune()), formatOffensive(getOffensive()), formatUtility(getUtility()), formatSupport(getSupport()), formatUltimate(getUltimate()));
+                return MessageFormat.format("{0} {1} {2} {3}, {4}, {5}, {6}, {7}", queuePrefix, getRankColour(), separator, formatRune(getRune()), formatOffensive(getOffensive()), formatUtility(getUtility()), formatSupport(getSupport()), formatUltimate(getUltimate()));
             } else {
                 return ChatColour.RED + getPlayerName() + " is not a real player!";
             }
