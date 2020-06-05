@@ -12,6 +12,7 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import si.seraph.opensource.mods.commands.configcommands.SetAPI;
 import si.seraph.opensource.mods.commands.statcommands.BedwarStats;
 import si.seraph.opensource.mods.listeners.APIListener;
+import si.seraph.opensource.mods.listeners.StatsOnJoin;
 import si.seraph.opensource.seraphapi.config.ModConfig;
 
 @Mod(modid = "seraphopensource", name = "Seraph OpenSource", clientSideOnly = true)
@@ -25,7 +26,7 @@ public class Main {
 	@Mod.EventHandler
 	public void init(FMLInitializationEvent event) {
 		registerCommands(new SetAPI(), new BedwarStats());
-		registerListeners(new APIListener());
+		registerListeners(new APIListener(), new StatsOnJoin());
 	}
 
 	private void registerCommands(ICommand... command) {
