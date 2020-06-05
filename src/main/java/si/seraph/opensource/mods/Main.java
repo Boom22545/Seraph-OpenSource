@@ -10,9 +10,11 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 
 import si.seraph.opensource.mods.commands.configcommands.SetAPI;
+import si.seraph.opensource.mods.commands.statcommands.ArenaBrawlStats;
 import si.seraph.opensource.mods.commands.statcommands.BedwarStats;
 import si.seraph.opensource.mods.listeners.APIListener;
-import si.seraph.opensource.mods.listeners.StatsOnJoin;
+import si.seraph.opensource.mods.listeners.games.StatsOnJoin;
+import si.seraph.opensource.mods.listeners.games.WatchDogDetection;
 import si.seraph.opensource.seraphapi.config.ModConfig;
 
 @Mod(modid = "seraphopensource", name = "Seraph OpenSource", clientSideOnly = true)
@@ -25,7 +27,7 @@ public class Main {
 
 	@Mod.EventHandler
 	public void init(FMLInitializationEvent event) {
-		registerCommands(new SetAPI(), new BedwarStats());
+		registerCommands(new SetAPI(), new BedwarStats(), new ArenaBrawlStats());
 		registerListeners(new APIListener(), new StatsOnJoin());
 	}
 

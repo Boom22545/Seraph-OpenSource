@@ -163,6 +163,14 @@ public abstract class HypixelGameBase extends HypixelAPI implements IHypixelGame
         this.uniqueID= java.util.UUID.fromString(String.format("%s-%s-%s-%s-%s", uniqueIDString.substring(0,8), uniqueIDString.substring(8,13), uniqueIDString.substring(13,18), uniqueIDString.substring(18,23),uniqueIDString.substring(23,uniqueIDString.length()-1)));
     }
 
+    public EntityPlayer getEntityPlayer() {
+        return entityPlayer;
+    }
+
+    public void setEntityPlayer(EntityPlayer entityPlayer) {
+        this.entityPlayer = entityPlayer;
+    }
+
     public String formatTime(int seconds) {
         int p1 = seconds % 60;
         int p2 = seconds / 60;

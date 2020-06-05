@@ -2,6 +2,7 @@ package si.seraph.opensource.seraphapi.apiwrappers.hypixel;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpGet;
@@ -12,6 +13,7 @@ import org.json.simple.parser.JSONParser;
 import si.seraph.opensource.seraphapi.apiwrappers.hypixel.exceptions.*;
 import si.seraph.opensource.seraphapi.config.ModConfig;
 import si.seraph.opensource.seraphapi.utils.References;
+import si.seraph.opensource.seraphapi.utils.SeraphLogger;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -19,7 +21,7 @@ import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.text.MessageFormat;
 
-public class HypixelAPI {
+public class HypixelAPI implements SeraphLogger {
     private final String key = ModConfig.getInstance().getApiKey();
 
     public JsonObject getApi(String name) throws TooManyHypixelRequestsException, InvalidKeyException, ApiReturnedUnSuccessfulException, NullJSONFileException, PlayerReturnedNullException {
@@ -37,7 +39,7 @@ public class HypixelAPI {
                 HttpGet request = new HttpGet(requstURL);
                 JsonParser jsonParser = new JsonParser();
                 obj = jsonParser.parse(new InputStreamReader(client.execute(request).getEntity().getContent(), StandardCharsets.UTF_8)).getAsJsonObject();
-                System.out.println(request.toString().replace(key, "APIKEY") + " Player: " + name);
+                LOGGER.info(request.toString().replace(key, "APIKEY") + " Player: " + name);
                 if (obj.get("player") == null) {
                     if (obj.get("cause").getAsString().equals("Invalid API key!")) {
                         throw new InvalidKeyException();
@@ -49,8 +51,39 @@ public class HypixelAPI {
                     throw new ApiReturnedUnSuccessfulException();
                 }
             } catch (IOException e) {
-                System.out.println("getApi");
-                e.printStackTrace();
+                LOGGER.error("getApi", e);
+            }
+            return obj;
+        }
+    }
+
+    public JsonObject getQueuestatsApi(EntityPlayer player) throws TooManyHypixelRequestsException, InvalidKeyException, ApiReturnedUnSuccessfulException, NullJSONFileException, PotentiallyWatchdogException, PlayerReturnedNullException {
+        JsonObject obj = new JsonObject();
+        if (key == null) {
+            throw new InvalidKeyException();
+        } else {
+            if (player.isInvisibleToPlayer(Minecraft.getMinecraft().thePlayer)) {
+                LOGGER.info(MessageFormat.format("{0} Triggered WATCHDOG checks", player.getGameProfile()));
+                throw new PotentiallyWatchdogException();
+            }
+            LOGGER.info("Player: "+ player.getName() + " Display String: "+player.getDisplayNameString());
+            try (CloseableHttpClient client = HttpClients.createDefault()) {
+                HttpGet request = new HttpGet(MessageFormat.format("https://api.hypixel.net/player?key={0}&uuid={1}", key, player.getUniqueID().toString().replace("-", "")));
+                JsonParser jsonParser = new JsonParser();
+                obj = jsonParser.parse(new InputStreamReader(client.execute(request).getEntity().getContent(), StandardCharsets.UTF_8)).getAsJsonObject();
+                LOGGER.info(request.toString().replace(key, "APIKEY") + " Player: " + player.getName());
+                if (obj.get("player") == null) {
+                    if (obj.get("cause").getAsString().equals("Invalid API key!")) {
+                        throw new InvalidKeyException();
+                    }
+                    throw new NullJSONFileException();
+                } else if (obj.get("player").toString().equalsIgnoreCase("null")) {
+                    throw new PlayerReturnedNullException();
+                } else if (obj.get("success").getAsString().equals("false")) {
+                    throw new ApiReturnedUnSuccessfulException();
+                }
+            } catch (IOException e) {
+                LOGGER.error("getApi", e);
             }
             return obj;
         }
@@ -82,6 +115,17 @@ public class HypixelAPI {
             JsonObject player = object.get("player").getAsJsonObject();
             JsonObject stats = player.get("stats").getAsJsonObject();
             result = stats.get("Bedwars").getAsJsonObject();
+        } catch (NullPointerException ignored) {
+        }
+        return result;
+    }
+
+    protected JsonObject getArenaBrawlJSON(JsonObject object) {
+        JsonObject result = null;
+        try {
+            JsonObject player = object.get("player").getAsJsonObject();
+            JsonObject stats = player.get("stats").getAsJsonObject();
+            result = stats.get("Arena").getAsJsonObject();
         } catch (NullPointerException ignored) {
         }
         return result;
