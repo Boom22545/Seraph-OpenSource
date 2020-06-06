@@ -1,13 +1,4 @@
-package si.seraph.opensource.mods.commands.configcommands;
-
-import net.minecraft.command.CommandException;
-import net.minecraft.command.ICommandSender;
-
-import si.seraph.opensource.seraphapi.config.ModConfig;
-import si.seraph.opensource.seraphapi.methodbases.SeraphCommandBase;
-import si.seraph.opensource.seraphapi.utils.Handler;
-import si.seraph.opensource.seraphapi.utils.chat.ChatColour;
-import si.seraph.opensource.seraphapi.utils.chat.ChatUtils;
+package si.seraph.opensource.seraphapi.apiwrappers.seraph;
 
 /*
  *
@@ -386,29 +377,18 @@ import si.seraph.opensource.seraphapi.utils.chat.ChatUtils;
  *   defined by the Mozilla Public License, v. 2.0.
  */
 
-public class SetAPI extends SeraphCommandBase {
+public class SeraphApi {
 
-    @Override
-    public String getCommandName() {
-        return "setapi";
-    }
+	public SeraphApi() {
+	}
 
-    @Override
-    public String getCommandUsage(ICommandSender sender) {
-        return null;
-    }
+	public String getURL() {
+		return "https://api.seraph.si/";
+	}
 
-    @Override
-    public void processCommand(ICommandSender sender, String[] args) throws CommandException {
-        if (args.length == 1) {
-            Handler.asExecutor(()-> {
-                String API_KEY = args[0];
-                ModConfig.getInstance().setApiKey(API_KEY);
-                ModConfig.getInstance().save();
-            });
-        } else {
-            ChatUtils.sendMessage(ChatColour.RED + "Command Usage: /setapi <api_key>");
-        }
-    }
+	public void getAuthData() {
+
+	}
+
 
 }
