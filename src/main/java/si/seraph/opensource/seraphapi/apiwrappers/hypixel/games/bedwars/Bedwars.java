@@ -14,7 +14,7 @@ import java.text.MessageFormat;
 
 public final class Bedwars extends BedwarsUtils implements IHypixelGame {
 
-    private boolean isNicked, bedwarsStatsCommand, notReal, watchdog;
+    private boolean isNicked, bedwarsStatsCommand, watchdog;
     private JsonObject bedwarJsonObject, achievementJsonObject;
     private Scoreboard scoreboard;
     /* KEEP CHAT COLOUR RESET AFTER! */
@@ -32,7 +32,6 @@ public final class Bedwars extends BedwarsUtils implements IHypixelGame {
 
     public void setData(String name) {
         isNicked = false;
-        notReal = false;
         boolean isFunctional = false;
         try {
             setWholeObject(getApi(name));
@@ -41,8 +40,6 @@ public final class Bedwars extends BedwarsUtils implements IHypixelGame {
             ChatUtils.sendMessage("Too Many Requests!");
         } catch (ApiReturnedUnSuccessfulException e) {
             ChatUtils.sendMessage("The api returned not successful, cause: " + e);
-        } catch (NullJSONFileException e) {
-            notReal = true;
         } catch (InvalidKeyException e) {
             ChatUtils.sendMessage("Invalid API Key!");
         } catch (NullPointerException e) {
@@ -51,7 +48,7 @@ public final class Bedwars extends BedwarsUtils implements IHypixelGame {
             isNicked = true;
         }
         try {
-            if (!isNicked && isFunctional && !notReal) {
+            if (!isNicked && isFunctional) {
                 this.bedwarJsonObject = getBedwarsJSON(getWholeObject());
                 this.achievementJsonObject = getAchievementJSON(getWholeObject());
                 setPlayerData();
@@ -70,10 +67,7 @@ public final class Bedwars extends BedwarsUtils implements IHypixelGame {
     public void setData(EntityPlayer player) {
         boolean isFunctional = false;
         isNicked = false;
-        notReal = false;
         watchdog = false;
-        setEntityPlayer(player);
-        setEntityPlayer(player);
         try {
             setWholeObject(getQueuestatsApi(player));
             isFunctional = true;
@@ -81,8 +75,6 @@ public final class Bedwars extends BedwarsUtils implements IHypixelGame {
             ChatUtils.sendMessage("Too Many Requests!");
         } catch (ApiReturnedUnSuccessfulException e) {
             ChatUtils.sendMessage("The api returned not successful, cause: " + e);
-        } catch (NullJSONFileException e) {
-            isNicked = true;
         } catch (InvalidKeyException e) {
             ChatUtils.sendMessage("Invalid API Key!");
         } catch (NullPointerException e) {
@@ -90,10 +82,10 @@ public final class Bedwars extends BedwarsUtils implements IHypixelGame {
         } catch (PotentiallyWatchdogException e) {
             watchdog = true;
         } catch (PlayerReturnedNullException e) {
-            notReal = true;
+            isNicked = true;
         }
         try {
-            if (!isNicked && isFunctional && !watchdog && !notReal) {
+            if (!isNicked && isFunctional && !watchdog) {
                 this.bedwarJsonObject = getBedwarsJSON(getWholeObject());
                 setPlayerData();
                 scoreboard = Minecraft.getMinecraft().theWorld.getScoreboard();
@@ -177,11 +169,7 @@ public final class Bedwars extends BedwarsUtils implements IHypixelGame {
 
     public String getFormattedStats() {
         if (!isNicked) {
-            if (!notReal) {
-                return MessageFormat.format("{0} {1} - {2}, {3}, {4}, {5}", starColor(getBedwarStars()), getRankColourWithPrefix(), wsColor(getWinstreak()), fkdrColorDouble(fkdRatioDouble(this)), wlrColorDouble(wlRatioDouble(this)), bblrColorDouble(bblRatioDouble(this)));
-            } else {
-                return ChatColour.RED + getPlayerName() + " is not a real player!";
-            }
+            return MessageFormat.format("{0} {1} - {2}, {3}, {4}, {5}", starColor(getBedwarStars()), getRankColourWithPrefix(), wsColor(getWinstreak()), fkdrColorDouble(fkdRatioDouble(this)), wlrColorDouble(wlRatioDouble(this)), bblrColorDouble(bblRatioDouble(this)));
         } else {
             return ChatColour.RED + getPlayerName() + " is nicked!";
         }
@@ -190,11 +178,7 @@ public final class Bedwars extends BedwarsUtils implements IHypixelGame {
     @Override
     public String getFormattedJoinStats(String playerName) {
         if (!isNicked) {
-            if (!notReal) {
-                return MessageFormat.format("{0} {1} {2} {3} {4}, {5}, {6}, {7}", joinPrefix, starColor(getBedwarStars()), playerName, separator, wsColor(getWinstreak()), fkdrColorDouble(fkdRatioDouble(this)), wlrColorDouble(wlRatioDouble(this)), bblrColorDouble(bblRatioDouble(this)));
-            } else {
-                return ChatColour.RED + getPlayerName() + " is not a real player!";
-            }
+            return MessageFormat.format("{0} {1} {2} {3} {4}, {5}, {6}, {7}", joinPrefix, starColor(getBedwarStars()), playerName, separator, wsColor(getWinstreak()), fkdrColorDouble(fkdRatioDouble(this)), wlrColorDouble(wlRatioDouble(this)), bblrColorDouble(bblRatioDouble(this)));
         } else {
             return ChatColour.RED + getPlayerName() + " is nicked!";
         }
@@ -203,11 +187,7 @@ public final class Bedwars extends BedwarsUtils implements IHypixelGame {
     @Override
     public String getFormattedQueueStats() {
         if (!isNicked) {
-            if (!notReal) {
-                return MessageFormat.format("{0} {1} {2} {3} {4}, {5}, {6}, {7}", queuePrefix, starColor(getBedwarStars()), getRankColour(), separator, wsColor(getWinstreak()), fkdrColorDouble(fkdRatioDouble(this)), wlrColorDouble(wlRatioDouble(this)), bblrColorDouble(bblRatioDouble(this)));
-            } else {
-                return ChatColour.RED + getPlayerName() + " is not a real player!";
-            }
+            return MessageFormat.format("{0} {1} {2} {3} {4}, {5}, {6}, {7}", queuePrefix, starColor(getBedwarStars()), getRankColour(), separator, wsColor(getWinstreak()), fkdrColorDouble(fkdRatioDouble(this)), wlrColorDouble(wlRatioDouble(this)), bblrColorDouble(bblRatioDouble(this)));
         } else {
             return ChatColour.RED + getPlayerName() + " is nicked!";
         }

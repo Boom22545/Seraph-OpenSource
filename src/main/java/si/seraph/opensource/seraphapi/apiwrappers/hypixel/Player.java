@@ -10,7 +10,7 @@ import si.seraph.opensource.seraphapi.apiwrappers.hypixel.games.HypixelGameBase;
 
 public class Player extends HypixelGameBase {
 
-    private boolean isNicked, notReal, watchdog;
+    private boolean isNicked, watchdog;
     private JsonObject player;
 
     public Player(String name) {
@@ -19,15 +19,12 @@ public class Player extends HypixelGameBase {
 
     public void setData(String name) {
         isNicked = false;
-        notReal = false;
         try {
             setWholeObject(getApi(name));
         } catch (TooManyHypixelRequestsException e) {
             ChatUtils.sendMessage("Too Many Requests!");
         } catch (ApiReturnedUnSuccessfulException e) {
             ChatUtils.sendMessage("The api returned not successful, cause: " + e);
-        } catch (NullJSONFileException e) {
-            notReal = true;
         } catch (InvalidKeyException e) {
             ChatUtils.sendMessage("Invalid API Key!");
         } catch (NullPointerException e) {
@@ -36,7 +33,7 @@ public class Player extends HypixelGameBase {
             isNicked = true;
         }
         try {
-            if (!isNicked && !notReal) {
+            if (!isNicked) {
                 this.player = getWholeObject().get("player").getAsJsonObject();
                 setPlayerData();
             } else {
@@ -53,7 +50,6 @@ public class Player extends HypixelGameBase {
     public void setData(EntityPlayer player) {
         boolean isFunctional = false;
         isNicked = false;
-        notReal = false;
         setEntityPlayer(player);
         setEntityPlayer(player);
         try {
@@ -63,8 +59,6 @@ public class Player extends HypixelGameBase {
             ChatUtils.sendMessage("Too Many Requests!");
         } catch (ApiReturnedUnSuccessfulException e) {
             ChatUtils.sendMessage("The api returned not successful, cause: " + e);
-        } catch (NullJSONFileException e) {
-            isNicked = true;
         } catch (InvalidKeyException e) {
             ChatUtils.sendMessage("Invalid API Key!");
         } catch (NullPointerException e) {
@@ -72,10 +66,10 @@ public class Player extends HypixelGameBase {
         } catch (PotentiallyWatchdogException e) {
             watchdog = true;
         } catch (PlayerReturnedNullException e) {
-            notReal = true;
+            isNicked = true;
         }
         try {
-            if (!isNicked && isFunctional && !watchdog && !notReal) {
+            if (!isNicked && isFunctional && !watchdog) {
                 getWholeObject().get("player").getAsJsonObject();
                 setPlayerData();
             }

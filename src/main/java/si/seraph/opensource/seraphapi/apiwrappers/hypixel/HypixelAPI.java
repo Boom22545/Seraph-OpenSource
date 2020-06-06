@@ -24,7 +24,7 @@ import java.text.MessageFormat;
 public class HypixelAPI implements SeraphLogger {
     private final String key = ModConfig.getInstance().getApiKey();
 
-    public JsonObject getApi(String name) throws TooManyHypixelRequestsException, InvalidKeyException, ApiReturnedUnSuccessfulException, NullJSONFileException, PlayerReturnedNullException {
+    public JsonObject getApi(String name) throws TooManyHypixelRequestsException, InvalidKeyException, ApiReturnedUnSuccessfulException, PlayerReturnedNullException {
         JsonObject obj = new JsonObject();
         if (key == null) {
             throw new InvalidKeyException();
@@ -44,7 +44,6 @@ public class HypixelAPI implements SeraphLogger {
                     if (obj.get("cause").getAsString().equals("Invalid API key!")) {
                         throw new InvalidKeyException();
                     }
-                    throw new NullJSONFileException();
                 } else if (obj.get("player").toString().equalsIgnoreCase("null")) {
                     throw new PlayerReturnedNullException();
                 } else if (obj.get("success").getAsString().equals("false")) {
@@ -57,7 +56,7 @@ public class HypixelAPI implements SeraphLogger {
         }
     }
 
-    public JsonObject getQueuestatsApi(EntityPlayer player) throws TooManyHypixelRequestsException, InvalidKeyException, ApiReturnedUnSuccessfulException, NullJSONFileException, PotentiallyWatchdogException, PlayerReturnedNullException {
+    public JsonObject getQueuestatsApi(EntityPlayer player) throws TooManyHypixelRequestsException, InvalidKeyException, ApiReturnedUnSuccessfulException, PotentiallyWatchdogException, PlayerReturnedNullException {
         JsonObject obj = new JsonObject();
         if (key == null) {
             throw new InvalidKeyException();
@@ -76,7 +75,6 @@ public class HypixelAPI implements SeraphLogger {
                     if (obj.get("cause").getAsString().equals("Invalid API key!")) {
                         throw new InvalidKeyException();
                     }
-                    throw new NullJSONFileException();
                 } else if (obj.get("player").toString().equalsIgnoreCase("null")) {
                     throw new PlayerReturnedNullException();
                 } else if (obj.get("success").getAsString().equals("false")) {

@@ -14,7 +14,6 @@ import si.seraph.opensource.mods.commands.statcommands.ArenaBrawlStats;
 import si.seraph.opensource.mods.commands.statcommands.BedwarStats;
 import si.seraph.opensource.mods.listeners.APIListener;
 import si.seraph.opensource.mods.listeners.games.StatsOnJoin;
-import si.seraph.opensource.mods.listeners.games.WatchDogDetection;
 import si.seraph.opensource.seraphapi.config.ModConfig;
 
 @Mod(modid = "seraphopensource", name = "Seraph OpenSource", clientSideOnly = true)
