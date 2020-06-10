@@ -436,6 +436,7 @@ public class HypixelAPI implements SeraphLogger {
         }
     }
 
+    @Deprecated
     public JsonObject getQueuestatsApi(EntityPlayer player) throws TooManyHypixelRequestsException, InvalidKeyException, ApiReturnedUnSuccessfulException, PotentiallyWatchdogException, PlayerReturnedNullException {
         JsonObject obj = new JsonObject();
         if (key == null) {
@@ -445,9 +446,9 @@ public class HypixelAPI implements SeraphLogger {
                 LOGGER.info(MessageFormat.format("{0} Triggered WATCHDOG checks", player.getGameProfile()));
                 throw new PotentiallyWatchdogException();
             }
-            LOGGER.info("Player: "+ player.getName() + " Display String: "+player.getDisplayNameString());
+            LOGGER.info("Player: " + player.getName() + " Display String: " + player.getDisplayNameString());
             try (CloseableHttpClient client = HttpClients.createDefault()) {
-                HttpGet request = new HttpGet(MessageFormat.format("https://api.hypixel.net/player?key={0}&uuid={1}", key, player.getUniqueID().toString().replace("-", "")));
+                HttpGet request = new HttpGet(MessageFormat.format("https://api.hypixel.net/player?key={0}&uuid={1}", key, getUUID(player.getName()).replace("-", "")));
                 JsonParser jsonParser = new JsonParser();
                 obj = jsonParser.parse(new InputStreamReader(client.execute(request).getEntity().getContent(), StandardCharsets.UTF_8)).getAsJsonObject();
                 LOGGER.info(request.toString().replace(key, "APIKEY") + " Player: " + player.getName());

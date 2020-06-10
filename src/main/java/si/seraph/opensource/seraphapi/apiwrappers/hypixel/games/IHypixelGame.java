@@ -383,6 +383,7 @@ public interface IHypixelGame {
 
     void setData(String name);
 
+    @Deprecated
     void setData(EntityPlayer player);
 
     String getSidebarName();

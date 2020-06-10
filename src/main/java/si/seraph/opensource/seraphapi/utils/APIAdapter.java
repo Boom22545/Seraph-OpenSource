@@ -386,8 +386,10 @@ public class APIAdapter {
     public String getData(IHypixelGame hypixel, EntityPlayer player) {
         String string = "";
         try {
-            hypixel.setData(player);
-            string = hypixel.getFormattedQueueStats();
+            if (!player.isInvisible()) {
+                hypixel.setData(player.getName());
+                string = hypixel.getFormattedQueueStats();
+            }
         } catch (Exception ignored) {
         }
         return string;

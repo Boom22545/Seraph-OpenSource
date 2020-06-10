@@ -8,7 +8,6 @@ import si.seraph.opensource.seraphapi.apiwrappers.hypixel.exceptions.*;
 import si.seraph.opensource.seraphapi.apiwrappers.hypixel.games.HypixelGameBase;
 import si.seraph.opensource.seraphapi.utils.chat.ChatUtils;
 
-
 /*
  *
  * Mozilla Public License Version 2.0
@@ -425,10 +424,10 @@ public class Player extends HypixelGameBase {
         }
     }
 
+    @Deprecated
     public void setData(EntityPlayer player) {
         boolean isFunctional = false;
         isNicked = false;
-        setEntityPlayer(player);
         setEntityPlayer(player);
         try {
             setWholeObject(getQueuestatsApi(player));
