@@ -4,7 +4,7 @@ To edit stat colors, go to BedwarsUtils.java!
 To edit join / leave messages, go to Bedwars.java!                                
 Credits: Dooger, Kay
 
-For a actively developed version of Seraph, Join our discord: https://discord.gg/8GZJxVX
+For an actively developed version of Seraph, Join our discord: https://discord.gg/8GZJxVX
 
 Currently fully supports
 
