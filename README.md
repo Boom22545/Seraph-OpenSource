@@ -22,3 +22,12 @@ To be added in the future, not supported:
 
 Arcade
 Rest of the Classic Games
+
+Extra Mods included:
+
+Final Kill counter for Solos and Doubles Bedwars,
+Bedwars Hud, Shows your stats
+/mystats for Bedwars, Will be extended to all supported games
+A bunch of macros for joining games as well as /lobby and /party warp
+/names [ign] for past names
+/status [ign] for current status
