@@ -6,7 +6,7 @@ Credits: Dooger, Kay
 
 For a actively developed version of Seraph, Join our discord: https://discord.gg/8GZJxVX
 
-Currently fullly supports
+Currently fully supports
 
 Bedwars,
 Skywars,
